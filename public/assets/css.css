@@ -163,3 +163,27 @@ pre.json-display {
     -webkit-transform: scaleY(1.0);
   }
 }
+
+.btn.sidebar {
+	background-color: #FAFAFA;
+	color: #EF3125;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	white-space: normal;
+	width: 12vh;
+	height: 12vh;
+	font-family: Public Sans;
+	border-left: 2px solid;
+	margin: 10px;
+}
+
+.text.sidebar {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Google Icons */
+.material-icons.red600 { 
+	font-size: 48px;
+}

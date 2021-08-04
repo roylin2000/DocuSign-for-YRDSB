@@ -20,6 +20,7 @@ const moment = require('moment');
 const csrf = require('csurf'); // https://www.npmjs.com/package/csurf
 
 const eg001 = require('./eg001EmbeddedSigning');
+const eg111 = require('./eg111MyOwn');
 
 const { 
   eg002, eg003, eg004, eg005, eg006, eg007, eg008, 
@@ -131,7 +132,10 @@ if (dsConfig.examplesApi.isRoomsApi) {
   app.get('/eg001', eg001monitor.getController)
     .post('/eg001', eg001monitor.createController)
 } else {
-  app.get('/eg001', eg001.getController)
+  app
+	.get('/eg111', eg111.getController)
+	.post('/eg111', eg111.createController)
+  	.get('/eg001', eg001.getController)
     .post('/eg001', eg001.createController)
     .get('/eg002', eg002.getController)
     .post('/eg002', eg002.createController)
