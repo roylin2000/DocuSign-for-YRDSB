@@ -82,6 +82,14 @@
   * Form page for this application
   */
   eg111EmbeddedSigning.getController = (req, res) => {
+
+	//** example list of forms to sign
+	var forms = [
+		{name: 'Museum Field Trip', status: 'Incomplete', type: "Extracurriculars", deadline: "August 10th (11:59 PM EST)"},
+		{name: 'Science Lab', status: 'Incomplete', type: "In-School", deadline: "August 29th (11:59 PM EST)"},
+		{name: 'Healthcare Forms', status: 'Incomplete', type: "Adminitrative", deadline: "August 15th (11:59 PM EST)"}
+	]
+
 	 console.log(req.dsAuth);
 	 // Check that the authentication token is ok with a long buffer time.
 	 // If needed, now is the best time to ask the user to authenticate
@@ -94,7 +102,8 @@
 			 sourceFile: path.basename(__filename),
 			 sourceUrl: 'https://github.com/docusign/code-examples-node/blob/master/eg001EmbeddedSigning.js',
 			 documentation: dsConfig.documentation + eg,
-			 showDoc: dsConfig.documentation
+			 showDoc: dsConfig.documentation,
+			 forms: forms
 		 });
 	 } else {
 		 // Save the current operation so it will be resumed after authentication

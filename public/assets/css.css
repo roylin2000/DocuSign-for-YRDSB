@@ -78,7 +78,7 @@ hr.styled:after {
 .feedback, .hidden {display: none;}
 span.feedback {margin-left:2em;}
 
-form.eg {max-width: 30em;}
+/* form.eg {max-width: 30em;} */
 form.eg label {font-weight: 550;}
 
 pre.json-display {
@@ -163,6 +163,37 @@ pre.json-display {
     -webkit-transform: scaleY(1.0);
   }
 }
+
+.form.row.layout {
+	justify-content: center;
+}
+
+.form.row.layout div{
+	margin-right: 100px;
+	padding: 10px;
+}
+
+.form.row.layout ul {
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type:none;
+}
+
+.form.row.layout ul li {
+	vertical-align: top;
+	text-align: center;
+	height: 100px;
+	line-height: 30px;
+	
+}
+
+.form.row.layout ul li button {
+	padding: 10px;
+	display: flex;
+}
+
+
+
 
 .btn.sidebar {
 	background-color: #FAFAFA;
