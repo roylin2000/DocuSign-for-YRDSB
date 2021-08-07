@@ -96,7 +96,7 @@
 	 // since they have not yet entered any information into the form.
 	 const tokenOK = req.dsAuth.checkToken();
 	 if (tokenOK) {
-		 res.render('pages/examples/eg111MyOwn', {
+		 res.render('pages/examples/final', {
 			 eg: eg, csrfToken: req.csrfToken(),
 			 title: "My own example",
 			 sourceFile: path.basename(__filename),
