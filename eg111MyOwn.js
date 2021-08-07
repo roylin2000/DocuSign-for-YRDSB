@@ -47,7 +47,7 @@
 		 signerClientId: signerClientId,
 		 dsReturnUrl: dsReturnUrl,
 		 dsPingUrl: dsPingUrl,
-		 docFile: path.resolve(demoDocsPath, pdf1File)
+		 docFile: path.resolve(demoDocsPath, validator.escape(body.pdfFile))
 	 };
 	 const args = {
 		 accessToken: req.user.accessToken,
