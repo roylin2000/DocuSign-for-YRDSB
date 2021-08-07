@@ -1,0 +1,40 @@
+<% include ../../partials/examplesHead %>
+<!-- <h4>0. My Own Example</h4> -->
+
+<% include ../../partials/docBody %>
+
+<form class="eg" action="" method="post" data-busy="form">
+
+
+	<button type="submit" class="btn sidebar">
+		<span class="material-icons red600"> schedule </span>
+		Upcoming Submissions
+	</button>
+
+	<div class="form row layout">
+		<div class="label name"><text >Name</text></div>
+		<div class="label status"><text >Status</text></div>
+		<div class="label type"><text>Type</text></div>
+		<div class="label deadline"><text>Deadline</text></div>
+	  	<!-- <text class="label name">Name</text>
+		<text class="label status">Status</text>
+		<text class="label type">Type</text>
+		<text class="label deadline">Deadline</text> -->
+		
+		<ul class="forms list">
+			<% forms.forEach( form => { %>
+			<li class="form item">
+				<button>
+					<div class="label name"><strong><%= form.name %></strong></div>
+					<div class="label status"><%= form.status %></div>
+					<div class="label type"><%= form.type %></div>
+					<div class="label deadline"><%= form.deadline %> </div>
+				</button>
+			</li>
+			<% }); %>
+		</ul>
+	</div>
+  
+</form>
+
+<% include ../../partials/examplesFoot.ejs %>
