@@ -39,7 +39,7 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	 console.log("hey " + body.signerEmail)
+	 console.log("hey " + body.pdfFile)
 
 	 const envelopeArgs = {
 		 signerEmail: validator.escape(body.signerEmail),
@@ -47,7 +47,7 @@
 		 signerClientId: signerClientId,
 		 dsReturnUrl: dsReturnUrl,
 		 dsPingUrl: dsPingUrl,
-		 docFile: path.resolve(demoDocsPath, validator.escape(body.pdfFile))
+		 docFile: path.resolve(demoDocsPath, body.pdfFile)
 	 };
 	 const args = {
 		 accessToken: req.user.accessToken,
@@ -85,10 +85,12 @@
 
 	//** example list of forms to sign
 	var forms = [
-		{name: 'Museum Field Trip', status: 'Incomplete', type: "Extracurriculars", deadline: "August 10th (11:59 PM EST)"},
-		{name: 'Science Lab', status: 'Incomplete', type: "In-School", deadline: "August 29th (11:59 PM EST)"},
-		{name: 'Healthcare Forms', status: 'Incomplete', type: "Adminitrative", deadline: "August 15th (11:59 PM EST)"}
+		{name: 'Museum Field Trip', status: 'Incomplete', type: "Extracurriculars", deadline: "August 10th (11:59 PM EST)", pdfFile: "World_Wide_Corp_fields.pdf"},
+		{name: 'Science Lab', status: 'Incomplete', type: "In-School", deadline: "August 29th (11:59 PM EST)", pdfFile: "World_Wide_Corp_lorem.pdf"},
+		{name: 'Healthcare Forms', status: 'Incomplete', type: "Adminitrative", deadline: "August 15th (11:59 PM EST)", pdfFile: "My_Own_Doc.pdf"}
 	]
+
+	
 
 	 console.log(req.dsAuth);
 	 // Check that the authentication token is ok with a long buffer time.
@@ -103,7 +105,7 @@
 			 sourceUrl: 'https://github.com/docusign/code-examples-node/blob/master/eg001EmbeddedSigning.js',
 			 documentation: dsConfig.documentation + eg,
 			 showDoc: dsConfig.documentation,
-			 forms: forms
+			 forms: forms,
 		 });
 	 } else {
 		 // Save the current operation so it will be resumed after authentication
