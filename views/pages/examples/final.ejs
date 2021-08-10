@@ -9,6 +9,13 @@
 
 <form class="eg" action="" method="post" data-busy="form">
 
+	<!-- Don't worry about these two inputs, they're hidden -->
+	<input type="hidden" class="form-control" id="signerEmail" name="signerEmail"
+          aria-describedby="emailHelp" placeholder="pat@example.com" required
+          value="<%= locals.dsConfig.signerEmail %>">
+	<input type="hidenn" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+	value="<%= locals.dsConfig.signerName %>" required>
+
 	</div>
 		<div class = "header two"><text > Upcoming Submissions</text></div>
 	</div>
@@ -19,6 +26,7 @@
 	</button>
 
 	<input type="file" id="myFile" name="filename">
+	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
 
 	<div class="form row layout">
 		<div class="label name"><text > </text></div>
