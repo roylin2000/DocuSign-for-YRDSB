@@ -21,6 +21,7 @@
 
  const docusign = require("docusign-esign");
  
+ app.use(express.static(path.join(__dirname, 'public')))
  /**
   * Create the envelope, the embedded signing, and then redirect to the DocuSign signing
   * @param {object} req Request obj

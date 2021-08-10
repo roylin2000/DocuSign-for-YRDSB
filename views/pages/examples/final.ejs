@@ -3,21 +3,30 @@
 
 <% include ../../partials/docBody %>
 
-<header>
-	<img class="logo" src="/public/images/yrdsb.png" alt="School Board Logo">
-</header>
+<body>
+	<img class="logo" src="/public/images/yrdsb.png" width="300" alt="School Board Logo">
+</body>
 
 <form class="eg" action="" method="post" data-busy="form">
-
+<!-- form has functions while div is just a box -->
 	</div>
 		<div class = "header two"><text > Upcoming Submissions</text></div>
 	</div>
 
 	<button type="submit" class="btn sidebar">
 		<span class="material-icons red600"> schedule </span>
+		Dashboard
+	</button>
+
+	<button type="submitted" class="btn sidebar">
+		<span class="material-icons red600"> schedule </span>
 		Upcoming Submissions
 	</button>
 
+	<button type="submitted" class="btn sidebar">
+		<span class="material-icons red600"> schedule </span>
+		Submitted Documents
+	</button>
 	
 
 	<div class="form row layout">
@@ -30,21 +39,10 @@
 		<text class="label status">Status</text>
 		<text class="label type">Type</text>
 		<text class="label deadline">Deadline</text> -->
-<<<<<<< HEAD
-		
-=======
 		<input type="hidden" id="envID" name="envID" value="">
->>>>>>> 65e3d644fab6277c96db4649a58ae994b5cc5fc7
 		<ul class="forms list">
-			<% forms.forEach( form => { %>
+			<% forms?.forEach( doc => { %>
 			<li class="form item">
-<<<<<<< HEAD
-				<button>
-					<div class="label name"><strong><%= form.name %></strong></div>
-					<div class="label status"><%= form.status %></div>
-					<div class="label type"><%= form.type %></div>
-					<div class="label deadline"><%= form.deadline %> </div>
-=======
                 <script>
                     setEnvID = function(envID) {
                         var elem = document.getElementById("envID");
@@ -57,7 +55,6 @@
 					<div class="label status"><%= doc.status %></div>
 					<div class="label type"><%= doc.folders[0].folderId %></div>
 					<div class="label deadline"><%= doc.expireDateTime %> </div>
->>>>>>> 65e3d644fab6277c96db4649a58ae994b5cc5fc7
 				</button>
 			</li>
 			<% }); %>

@@ -211,6 +211,13 @@ pre.json-display {
   font: bold 16px Arial, Helvetica, sans-serif;
   color: #000000;
 }
+
+form {
+  border: red;
+  border: 20px;
+  left: 20%;
+}
+
 .form.row.layout {
   justify-content: auto;
   font: normal 16px Arial, Helvetica, sans-serif;
@@ -222,12 +229,14 @@ pre.json-display {
 }
 
 .form.row.layout ul {
+  /* ul stands for untitled list */
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
 }
 
 .form.row.layout ul li {
+  /* ul stands for untitled list and li is list items */
   vertical-align: top;
   text-align: center;
   height: 100px;
