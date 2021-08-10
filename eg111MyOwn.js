@@ -96,7 +96,7 @@
   */
   eg111EmbeddedSigning.getController = async (req, res) => {
 	const args = {
-		accessToken: req.user.accessToken,
+		accessToken: req.user?.accessToken,
 		basePath: req.session.basePath,
 		accountId: req.session.accountId,
 	};
