@@ -27,6 +27,8 @@
 		Upcoming Submissions
 	</button>
 
+	<input type="file" id="myFile" name="filename">
+
 	<div class="form row layout">
 		<div class="label name"><text >Name</text></div>
 		<div class="label status"><text >Status</text></div>
@@ -38,7 +40,7 @@
 		<text class="label deadline">Deadline</text> -->
 		<input type="hidden" id="envID" name="envID" value="">
 		<ul class="forms list">
-			<% forms.forEach( doc => { %>
+			<% forms?.forEach( doc => { %>
 			<li class="form item">
                 <script>
                     setEnvID = function(envID) {

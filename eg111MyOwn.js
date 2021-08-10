@@ -41,7 +41,7 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	//console.log("cool " + body.envID)
+	 console.log(body.filename)
 
 	 const envelopeArgs = {
 		 signerEmail: validator.escape(body.signerEmail),
@@ -57,13 +57,13 @@
 		 accountId: req.session.accountId,
 		 envelopeArgs: envelopeArgs
 	 };
-
+	//////////////////////////////////////////////////////////////////////////////
 	let dsApiClient = new docusign.ApiClient();
 	dsApiClient.setBasePath(args.basePath);
 	dsApiClient.addDefaultHeader("Authorization", "Bearer " + args.accessToken);
 	let envelopesApi = new docusign.EnvelopesApi(dsApiClient),
 		results = null;
- 
+	//////////////////////////////////////////////////////////////////////////////
 	 try {
 		let viewRequest = makeRecipientViewRequest(envelopeArgs);
 		// results = await sendEnvelopeForEmbeddedSigning(args);
@@ -71,7 +71,7 @@
 			recipientViewRequest: viewRequest,
 		});
 
-		// console.log("The URL is: " + results.url)
+		
 	 }
 	 catch (error) {
 		 const errorBody = error && error.response && error.response.body;
@@ -122,7 +122,7 @@
 
 	var envInfo = await (await envelopesApi.listStatusChanges(args.accountId, {folderIds:["out_for_signature"]})).envelopes
 
-	console.log(envInfo)
+	//console.log(envInfo)
 
 	
 
