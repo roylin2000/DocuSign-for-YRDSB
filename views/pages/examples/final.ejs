@@ -3,31 +3,25 @@
 
 <% include ../../partials/docBody %>
 
-
- 
+<header>
+	<img class="logo" src="/public/images/yrdsb.png" alt="School Board Logo">
+</header>
 
 <form class="eg" action="" method="post" data-busy="form">
 
-    <div class="form-group">
-		<label for="signerEmail">Signer Email</label>
-		<input type="email" class="form-control" id="signerEmail" name="signerEmail"
-			aria-describedby="emailHelp" placeholder="pat@example.com" required
-			value="<%= locals.dsConfig.signerEmail %>">
-		<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 	</div>
-	<div class="form-group">
-		<label for="signerName">Signer Name</label>
-		<input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-			value="<%= locals.dsConfig.signerName %>" required>
+		<div class = "header two"><text > Upcoming Submissions</text></div>
 	</div>
 
-    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
 	<button type="submit" class="btn sidebar">
 		<span class="material-icons red600"> schedule </span>
 		Upcoming Submissions
 	</button>
 
+	
+
 	<div class="form row layout">
+		<div class="label name"><text > </text></div>
 		<div class="label name"><text >Name</text></div>
 		<div class="label status"><text >Status</text></div>
 		<div class="label type"><text>Type</text></div>
@@ -36,25 +30,15 @@
 		<text class="label status">Status</text>
 		<text class="label type">Type</text>
 		<text class="label deadline">Deadline</text> -->
-		<input type="hidden" id="pdfFile" name="pdfFile" value="">
+		
 		<ul class="forms list">
-			<% forms.forEach( doc => { %>
+			<% forms.forEach( form => { %>
 			<li class="form item">
-                <script>
-                    setPDF = function(pdfName) {
-                        console.log(pdfName)
-                        var elem = document.getElementById("pdfFile");
-                        elem.value = pdfName;
-                        
-                    }
-                </script>
-
-				<button onclick=setPDF("<%=doc.pdfFile%>")>
-                    
-					<div class="label name"><strong><%= doc.name %></strong></div>
-					<div class="label status"><%= doc.status %></div>
-					<div class="label type"><%= doc.type %></div>
-					<div class="label deadline"><%= doc.deadline %> </div>
+				<button>
+					<div class="label name"><strong><%= form.name %></strong></div>
+					<div class="label status"><%= form.status %></div>
+					<div class="label type"><%= form.type %></div>
+					<div class="label deadline"><%= form.deadline %> </div>
 				</button>
 			</li>
 			<% }); %>
