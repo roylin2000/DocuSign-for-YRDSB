@@ -36,25 +36,22 @@
 		<text class="label status">Status</text>
 		<text class="label type">Type</text>
 		<text class="label deadline">Deadline</text> -->
-		<input type="hidden" id="pdfFile" name="pdfFile" value="">
+		<input type="hidden" id="envID" name="envID" value="">
 		<ul class="forms list">
 			<% forms.forEach( doc => { %>
 			<li class="form item">
                 <script>
-                    setPDF = function(pdfName) {
-                        console.log(pdfName)
-                        var elem = document.getElementById("pdfFile");
-                        elem.value = pdfName;
-                        
+                    setEnvID = function(envID) {
+                        var elem = document.getElementById("envID");
+                        elem.value = envID;
                     }
                 </script>
 
-				<button onclick=setPDF("<%=doc.pdfFile%>")>
-                    
-					<div class="label name"><strong><%= doc.name %></strong></div>
+				<button onclick=setEnvID("<%=doc.envelopeId%>")>
+					<div class="label name"><strong><%= doc.emailSubject%></strong></div>
 					<div class="label status"><%= doc.status %></div>
-					<div class="label type"><%= doc.type %></div>
-					<div class="label deadline"><%= doc.deadline %> </div>
+					<div class="label type"><%= doc.folders[0].folderId %></div>
+					<div class="label deadline"><%= doc.expireDateTime %> </div>
 				</button>
 			</li>
 			<% }); %>
