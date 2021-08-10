@@ -30,15 +30,34 @@
 		<text class="label status">Status</text>
 		<text class="label type">Type</text>
 		<text class="label deadline">Deadline</text> -->
+<<<<<<< HEAD
 		
+=======
+		<input type="hidden" id="envID" name="envID" value="">
+>>>>>>> 65e3d644fab6277c96db4649a58ae994b5cc5fc7
 		<ul class="forms list">
 			<% forms.forEach( form => { %>
 			<li class="form item">
+<<<<<<< HEAD
 				<button>
 					<div class="label name"><strong><%= form.name %></strong></div>
 					<div class="label status"><%= form.status %></div>
 					<div class="label type"><%= form.type %></div>
 					<div class="label deadline"><%= form.deadline %> </div>
+=======
+                <script>
+                    setEnvID = function(envID) {
+                        var elem = document.getElementById("envID");
+                        elem.value = envID;
+                    }
+                </script>
+
+				<button onclick=setEnvID("<%=doc.envelopeId%>")>
+					<div class="label name"><strong><%= doc.emailSubject%></strong></div>
+					<div class="label status"><%= doc.status %></div>
+					<div class="label type"><%= doc.folders[0].folderId %></div>
+					<div class="label deadline"><%= doc.expireDateTime %> </div>
+>>>>>>> 65e3d644fab6277c96db4649a58ae994b5cc5fc7
 				</button>
 			</li>
 			<% }); %>

@@ -8,6 +8,7 @@ const path = require('path');
 const { sendEnvelopeForEmbeddedSigning } = require('./lib/eSignature/examples/embeddedSigning');
 const validator = require('validator');
 const dsConfig = require('./config/index.js').config;
+const { env } = require('process');
 
 const eg001EmbeddedSigning = exports;
 const eg = 'eg001'; // This example reference.
@@ -44,7 +45,8 @@ eg001EmbeddedSigning.createController = async (req, res) => {
         signerClientId: signerClientId,
         dsReturnUrl: dsReturnUrl,
         dsPingUrl: dsPingUrl,
-        docFile: path.resolve(demoDocsPath, pdf1File)
+        docFile: path.resolve(demoDocsPath, pdf1File),
+		envName: "test name"
     };
     const args = {
         accessToken: req.user.accessToken,

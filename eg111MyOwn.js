@@ -5,7 +5,7 @@
  */
 
  const path = require('path');
- const { sendEnvelopeForEmbeddedSigning } = require('./lib/eSignature/examples/embeddedSigning');
+ const { sendEnvelopeForEmbeddedSigning, makeRecipientViewRequest } = require('./lib/eSignature/examples/embeddedSigning');
  const validator = require('validator');
  const dsConfig = require('./config/index.js').config;
  
@@ -18,6 +18,8 @@
  const pdf1File = 'My_Own_Doc.pdf';
  const dsReturnUrl = dsConfig.appUrl + '/ds-return';
  const dsPingUrl = dsConfig.appUrl + '/'; // Url that will be pinged by the DocuSign signing via Ajax
+
+ const docusign = require("docusign-esign");
  
  /**
   * Create the envelope, the embedded signing, and then redirect to the DocuSign signing
@@ -39,7 +41,7 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	 console.log("hey " + body.pdfFile)
+	//console.log("cool " + body.envID)
 
 	 const envelopeArgs = {
 		 signerEmail: validator.escape(body.signerEmail),
@@ -47,7 +49,7 @@
 		 signerClientId: signerClientId,
 		 dsReturnUrl: dsReturnUrl,
 		 dsPingUrl: dsPingUrl,
-		 docFile: path.resolve(demoDocsPath, body.pdfFile)
+		//  docFile: path.resolve(demoDocsPath, body.pdfFile)
 	 };
 	 const args = {
 		 accessToken: req.user.accessToken,
@@ -55,10 +57,21 @@
 		 accountId: req.session.accountId,
 		 envelopeArgs: envelopeArgs
 	 };
-	 let results = null;
+
+	let dsApiClient = new docusign.ApiClient();
+	dsApiClient.setBasePath(args.basePath);
+	dsApiClient.addDefaultHeader("Authorization", "Bearer " + args.accessToken);
+	let envelopesApi = new docusign.EnvelopesApi(dsApiClient),
+		results = null;
  
 	 try {
-		 results = await sendEnvelopeForEmbeddedSigning(args);
+		let viewRequest = makeRecipientViewRequest(envelopeArgs);
+		// results = await sendEnvelopeForEmbeddedSigning(args);
+		results = await envelopesApi.createRecipientView(args.accountId, body.envID, {
+			recipientViewRequest: viewRequest,
+		});
+
+		// console.log("The URL is: " + results.url)
 	 }
 	 catch (error) {
 		 const errorBody = error && error.response && error.response.body;
@@ -74,25 +87,48 @@
 		 // Don't use an iFrame!
 		 // State can be stored/recovered using the framework's session or a
 		 // query parameter on the returnUrl (see the makeRecipientViewRequest method)
-		 res.redirect(results.redirectUrl);
+		 res.redirect(results.url);
 	 }
  }
  
  /**
   * Form page for this application
   */
-  eg111EmbeddedSigning.getController = (req, res) => {
+  eg111EmbeddedSigning.getController = async (req, res) => {
+	const args = {
+		accessToken: req.user.accessToken,
+		basePath: req.session.basePath,
+		accountId: req.session.accountId,
+	};
+
+	let dsApiClient = new docusign.ApiClient();
+	dsApiClient.setBasePath(args.basePath);
+	dsApiClient.addDefaultHeader("Authorization", "Bearer " + args.accessToken);
+	let envelopesApi = new docusign.EnvelopesApi(dsApiClient),
+    	results = null;
 
 	//** example list of forms to sign
 	var forms = [
 		{name: 'Museum Field Trip', status: 'Incomplete', type: "Extracurriculars", deadline: "August 10th (11:59 PM EST)", pdfFile: "World_Wide_Corp_fields.pdf"},
 		{name: 'Science Lab', status: 'Incomplete', type: "In-School", deadline: "August 29th (11:59 PM EST)", pdfFile: "World_Wide_Corp_lorem.pdf"},
-		{name: 'Healthcare Forms', status: 'Incomplete', type: "Adminitrative", deadline: "August 15th (11:59 PM EST)", pdfFile: "My_Own_Doc.pdf"}
+		{name: 'Healthcare Forms', status: 'Incomplete', type: "Adminitrative", deadline: "August 15th (11:59 PM EST)", pdfFile: "My_Own_Doc.pdf", envID: "b9df39e8-b7f8-495a-9445-48c767877cb6"}
 	]
 
 	
 
-	 console.log(req.dsAuth);
+	// const envSearchParams = {
+	// 	folder_ids: [out_for_signature]
+	// }
+
+	var envInfo = await (await envelopesApi.listStatusChanges(args.accountId, {folderIds:["out_for_signature"]})).envelopes
+
+	console.log(envInfo)
+
+	
+
+
+
+	 //console.log(req.dsAuth);
 	 // Check that the authentication token is ok with a long buffer time.
 	 // If needed, now is the best time to ask the user to authenticate
 	 // since they have not yet entered any information into the form.
@@ -105,7 +141,7 @@
 			 sourceUrl: 'https://github.com/docusign/code-examples-node/blob/master/eg001EmbeddedSigning.js',
 			 documentation: dsConfig.documentation + eg,
 			 showDoc: dsConfig.documentation,
-			 forms: forms,
+			 forms: envInfo,
 		 });
 	 } else {
 		 // Save the current operation so it will be resumed after authentication
