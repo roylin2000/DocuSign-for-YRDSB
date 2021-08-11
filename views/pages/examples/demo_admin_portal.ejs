@@ -25,7 +25,25 @@
 		Upcoming Submissions
 	</button>
 
-	<input type="file" id="inputFile" name="inputFile">
+	<!-- file input -->
+	<input type="file" id="inputFile" name="inputFile" multiple>
+	<input type="hidden" id="fileBase64" name="fileBase64" value="">
+	<script>
+		const fileSelector = document.getElementById('inputFile');
+		fileSelector.addEventListener('change', (event) => {
+		  	const fileList = event.target.files;
+			var fileReader = new FileReader();
+
+			fileReader.onload = () => {
+				var elem = document.getElementById("fileBase64");
+				elem.value = fileReader.result
+			}
+
+			fileReader.readAsDataURL(fileList[0])
+			
+		});
+	</script>
+
 	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
 
 	<!-- <div class="form row layout">

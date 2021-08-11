@@ -40,7 +40,7 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	 console.log(body)
+	 //console.log(body.fileBase64.substr(body.fileBase64.indexOf(',')+1))
 
 	 const envelopeArgs = {
 		 signerEmail: validator.escape(body.signerEmail),
@@ -48,7 +48,7 @@
 		 signerClientId: signerClientId,
 		 dsReturnUrl: dsReturnUrl,
 		 dsPingUrl: dsPingUrl,
-		 docFile: body.filename,
+		 docFile: body.fileBase64.substr(body.fileBase64.indexOf(',')+1),
 		 envName: "test pdf upload"
 	 };
 	 const args = {

@@ -30,6 +30,15 @@
 		<span class="material-icons red600"> cloud_done </span>
 		Submitted Documents
 	</button>
+
+	<!-- hidden inputs so don't worry about them -->
+	<input type="hidden" class="form-control" id="signerEmail" name="signerEmail"
+          aria-describedby="emailHelp" placeholder="pat@example.com" required
+          value="<%= locals.dsConfig.signerEmail %>">
+	<input type="hidden" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+		value="<%= locals.dsConfig.signerName %>" required>
+	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
+
 	
 
 	<div class="form row layout">
