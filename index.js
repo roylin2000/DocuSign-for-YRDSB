@@ -21,6 +21,7 @@ const csrf = require('csurf'); // https://www.npmjs.com/package/csurf
 
 const eg001 = require('./eg001EmbeddedSigning');
 const eg111 = require('./eg111MyOwn');
+const admin_portal = require('./demo_admin_portal');
 
 const { 
   eg002, eg003, eg004, eg005, eg006, eg007, eg008, 
@@ -133,6 +134,8 @@ if (dsConfig.examplesApi.isRoomsApi) {
     .post('/eg001', eg001monitor.createController)
 } else {
   app
+	.get('/admin_portal', admin_portal.getController)
+	.post('/admin_portal', admin_portal.createController)
 	.get('/eg111', eg111.getController)
 	.post('/eg111', eg111.createController)
   	.get('/eg001', eg001.getController)
