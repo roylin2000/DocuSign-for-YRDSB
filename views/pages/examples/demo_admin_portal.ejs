@@ -1,0 +1,61 @@
+<% include ../../partials/examplesHead %>
+<!-- <h4>0. My Own Example</h4> -->
+
+<% include ../../partials/docBody %>
+
+<header>
+	<img  src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/York_Region_District_School_Board_Logo.svg/1200px-York_Region_District_School_Board_Logo.svg.png" alt="School Board Logo">
+</header>
+
+<form class="eg" action="" method="post" data-busy="form">
+
+	<!-- Don't worry about these two inputs, they're hidden -->
+	<input type="hidden" class="form-control" id="signerEmail" name="signerEmail"
+          aria-describedby="emailHelp" placeholder="pat@example.com" required
+          value="<%= locals.dsConfig.signerEmail %>">
+	<input type="hidden" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+	value="<%= locals.dsConfig.signerName %>" required>
+
+	</div>
+		<div class = "header two"><text > Upcoming Submissions</text></div>
+	</div>
+
+	<button type="submit" class="btn sidebar">
+		<span class="material-icons red600"> schedule </span>
+		Upcoming Submissions
+	</button>
+
+	<input type="file" id="inputFile" name="inputFile">
+	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
+
+	<!-- <div class="form row layout">
+		<div class="label name"><text > </text></div>
+		<div class="label name"><text >Name</text></div>
+		<div class="label status"><text >Status</text></div>
+		<div class="label type"><text>Type</text></div>
+		<div class="label deadline"><text>Deadline</text></div>
+		<input type="hidden" id="envID" name="envID" value="">
+		<ul class="forms list">
+			<%# forms?.forEach( doc => { %>
+			<li class="form item">
+                <script>
+                    setEnvID = function(envID) {
+                        var elem = document.getElementById("envID");
+                        elem.value = envID;
+                    }
+                </script>
+
+				<button onclick=setEnvID("<%#=doc.envelopeId%>")>
+					<div class="label name"><strong><%#= doc.emailSubject%></strong></div>
+					<div class="label status"><%#= doc.status %></div>
+					<div class="label type"><%#= doc.folders[0].folderId %></div>
+					<div class="label deadline"><%#= doc.expireDateTime %> </div>
+				</button>
+			</li>
+			<%# }); %>
+		</ul>
+	</div> -->
+  
+</form>
+
+<% include ../../partials/examplesFoot.ejs %>
