@@ -208,14 +208,14 @@ pre.json-display {
 
 /* THis is where our code starts
 BOOKMARKED */
-
 .pageTop {
-  height: 200px;
-  border-bottom: 10px, grey;
+  height: 150px;
+  width: 100%;
+  border-bottom: 2px solid rgb(180, 180, 180);
 }
 
 .logo {
-  margin-left: 20px;
+  margin-left: 50px;
   position: absolute;
 }
 
@@ -233,9 +233,10 @@ BOOKMARKED */
 }
 
 .header.two {
-  margin-left: 20%;
+  margin-left: 200px;
   font: bold 30px Arial, Helvetica, sans-serif;
   color: #000000;
+  margin-top: 70px;
 }
 
 /* This is the left side bars */
@@ -293,13 +294,43 @@ form {
 }
 
 .form.row.layout {
-  justify-content: auto;
-  font: normal 16px Arial, Helvetica, sans-serif;
-  margin-left: 20%;
+  width: 1200px;
+  background-color: rgb(230, 230, 235);
+  margin-left: 180px;
+  margin-top: 30px;
+  border-radius: 5px;
 }
 
-.form.row.layout div {
-  margin-right: auto;
+/* This is the format for the label on the for each of the 
+columns in the table */
+.labelName {
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.labelStatus {
+  margin-left: 500px;
+  padding: 10px;
+}
+
+.labelDeadline {
+  margin-left: 200px;
+  padding: 10px;
+}
+
+/* This is the format for the cells inside the table */
+.label.name {
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.label.status {
+  margin-left: 500px;
+  padding: 10px;
+}
+
+.label.deadline {
+  margin-left: 200px;
   padding: 10px;
 }
 
