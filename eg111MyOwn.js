@@ -20,9 +20,8 @@
  const dsPingUrl = dsConfig.appUrl + '/'; // Url that will be pinged by the DocuSign signing via Ajax
 
  const docusign = require("docusign-esign");
- 
  /**
-  * Redirects student to the envelop that they want to sign
+  * Create the envelope, the embedded signing, and then redirect to the DocuSign signing
   * @param {object} req Request obj
   * @param {object} res Response obj
   */
@@ -41,7 +40,7 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	 console.log(body.filename)
+	//console.log("cool " + body.envID)
 
 	 const envelopeArgs = {
 		 signerEmail: validator.escape(body.signerEmail),
@@ -57,21 +56,21 @@
 		 accountId: req.session.accountId,
 		 envelopeArgs: envelopeArgs
 	 };
-	//////////////////////////////////////////////////////////////////////////////
+
 	let dsApiClient = new docusign.ApiClient();
 	dsApiClient.setBasePath(args.basePath);
 	dsApiClient.addDefaultHeader("Authorization", "Bearer " + args.accessToken);
 	let envelopesApi = new docusign.EnvelopesApi(dsApiClient),
 		results = null;
-	//////////////////////////////////////////////////////////////////////////////
+ 
 	 try {
-		//* generating DocuSign view for student to be redirected to
 		let viewRequest = makeRecipientViewRequest(envelopeArgs);
+		// results = await sendEnvelopeForEmbeddedSigning(args);
 		results = await envelopesApi.createRecipientView(args.accountId, body.envID, {
 			recipientViewRequest: viewRequest,
 		});
 
-		
+		// console.log("The URL is: " + results.url)
 	 }
 	 catch (error) {
 		 const errorBody = error && error.response && error.response.body;
@@ -96,7 +95,7 @@
   */
   eg111EmbeddedSigning.getController = async (req, res) => {
 	const args = {
-		accessToken: req.user?.accessToken,
+		accessToken: req.user.accessToken,
 		basePath: req.session.basePath,
 		accountId: req.session.accountId,
 	};
@@ -108,14 +107,23 @@
     	results = null;
 
 	//** example list of forms to sign
-	// var forms = [
-	// 	{name: 'Museum Field Trip', status: 'Incomplete', type: "Extracurriculars", deadline: "August 10th (11:59 PM EST)", pdfFile: "World_Wide_Corp_fields.pdf"},
-	// 	{name: 'Science Lab', status: 'Incomplete', type: "In-School", deadline: "August 29th (11:59 PM EST)", pdfFile: "World_Wide_Corp_lorem.pdf"},
-	// 	{name: 'Healthcare Forms', status: 'Incomplete', type: "Adminitrative", deadline: "August 15th (11:59 PM EST)", pdfFile: "My_Own_Doc.pdf", envID: "b9df39e8-b7f8-495a-9445-48c767877cb6"}
-	// ]
+	var forms = [
+		{name: 'Museum Field Trip', status: 'Incomplete', type: "Extracurriculars", deadline: "August 10th (11:59 PM EST)", pdfFile: "World_Wide_Corp_fields.pdf"},
+		{name: 'Science Lab', status: 'Incomplete', type: "In-School", deadline: "August 29th (11:59 PM EST)", pdfFile: "World_Wide_Corp_lorem.pdf"},
+		{name: 'Healthcare Forms', status: 'Incomplete', type: "Adminitrative", deadline: "August 15th (11:59 PM EST)", pdfFile: "My_Own_Doc.pdf", envID: "b9df39e8-b7f8-495a-9445-48c767877cb6"}
+	]
 
-	//* Searches for envelopes that need to be signed
+	
+
+	// const envSearchParams = {
+	// 	folder_ids: [out_for_signature]
+	// }
+
 	var envInfo = await (await envelopesApi.listStatusChanges(args.accountId, {folderIds:["out_for_signature"]})).envelopes
+
+	console.log(envInfo)
+
+	
 
 
 
@@ -132,7 +140,7 @@
 			 sourceUrl: 'https://github.com/docusign/code-examples-node/blob/master/eg001EmbeddedSigning.js',
 			 documentation: dsConfig.documentation + eg,
 			 showDoc: dsConfig.documentation,
-			 forms: envInfo, //* send in the envelops to be rendered
+			 forms: envInfo,
 		 });
 	 } else {
 		 // Save the current operation so it will be resumed after authentication
