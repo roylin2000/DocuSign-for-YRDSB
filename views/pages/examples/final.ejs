@@ -3,8 +3,11 @@
 
 <% include ../../partials/docBody %>
 
-<body>
-	<img class="logo" src="/public/images/yrdsb.png" width="300" alt="School Board Logo">
+<body class = "pageTop">
+	<img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/York_Region_District_School_Board_Logo.svg/1200px-York_Region_District_School_Board_Logo.svg.png" height = "50" width="100" alt="School Board Logo">
+	<button class = "logout">
+		logout
+	</button>
 </body>
 
 <form class="eg" action="" method="post" data-busy="form">
@@ -13,18 +16,18 @@
 		<div class = "header two"><text > Upcoming Submissions</text></div>
 	</div>
 
-	<button type="submit" class="btn sidebar">
-		<span class="material-icons red600"> schedule </span>
+	<button type="dashboard" class="btn sidebarOne">
+		<span class="material-icons red600"> dashboard </span>
 		Dashboard
 	</button>
 
-	<button type="submitted" class="btn sidebar">
+	<button type="submitted" class="btn sidebarTwo">
 		<span class="material-icons red600"> schedule </span>
 		Upcoming Submissions
 	</button>
 
-	<button type="submitted" class="btn sidebar">
-		<span class="material-icons red600"> schedule </span>
+	<button type="submittedDoc" class="btn sidebarThree">
+		<span class="material-icons red600"> cloud_done </span>
 		Submitted Documents
 	</button>
 	
