@@ -41,12 +41,15 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
+	 console.log(body.docDeadline)
+
 
 	 const envelopeArgs = {
 		 inputFileNames: body.inputFiles,
 		 docFiles: body.fileBase64.substr(body.fileBase64.indexOf(',')+1),
 		 envName: body.docName,
-		 expireDateTime: body.docDeadline,
+		 expireAfter: body.docDeadline,
+		 bulkRecipients: body.bulkJSONFile,
 	 };
 	 const args = {
 		 accessToken: req.user.accessToken,
@@ -112,31 +115,25 @@ const bulkSendEnvelopeForSigning = async (args) => {
 	dsApiClient.setBasePath(args.basePath);
 	dsApiClient.addDefaultHeader("Authorization", "Bearer " + args.accessToken);
 	let envelopesApi = new docusign.EnvelopesApi(dsApiClient),
-	  results = null;
-	let bulkEnvelopesApi = new docusign.BulkEnvelopesApi(dsApiClient);
+	  results = null,
+	  bulkEnvelopesApi = new docusign.BulkEnvelopesApi(dsApiClient);
+
+
+	//creating bulkRecipients list from the json of the csv file
+	bulkRecipients = [];
+
+	JSON.parse(args.envelopeArgs.bulkRecipients).forEach( recip => {
+		bulkRecipients.push({
+			recipients: [recip]
+		})
+	})
+	
 
 	let bulkList = await bulkEnvelopesApi.createBulkSendList(args.accountId,
 		{
 			bulkSendingList: {
 				name: "Two Roys",
-				bulkCopies:[
-					{
-						recipients: [
-							{
-								name: "Roy Lin",
-								email: "roy0728@outlook.com",
-								recipientId: 1,
-							
-							},
-							{
-								name: "Roy Testing Lin",
-								email: "linroy0728@gmail.com",
-								recipientId: 2,
-							
-							},
-						]
-					}
-				]
+				bulkCopies: bulkRecipients
 			}
 	})
   
@@ -150,6 +147,25 @@ const bulkSendEnvelopeForSigning = async (args) => {
 	});
   
 	let envelopeId = results.envelopeId;
+
+	await envelopesApi.createRecipient(args.accountId, envelopeId,
+		{
+			recipients: {
+				signers: [
+					{
+						name: "Multi Bulk Recipient::signer",
+						email: "multiBulkRecipients-signer@docusign.com",
+						roleName: "signer",
+						routingOrder: "1",
+						status: "created",
+						deliveryMethod: "email",
+						recipientId: "1",
+						recipientType: "signer"
+					}
+				]
+		}
+	})
+
 	await envelopesApi.createCustomFields(args.accountId, envelopeId,
 		{
 			customFields: {
@@ -164,34 +180,13 @@ const bulkSendEnvelopeForSigning = async (args) => {
 			}
 	})
 
-	// await envelopeApi.createRecipient(args.accountId, envelopeId,
-	// 	{
-	// 		recipients: {
-	// 			signers: [
-	// 				{
-	// 					name: "Multi Bulk Recipient::signer",
-	// 					email: "multiBulkRecipients-signer@docusign.com",
-	// 					roleName: "signer",
-	// 					routingOrder: "1",
-	// 					status: "created",
-	// 					deliveryMethod: "email",
-	// 					recipientId: "1",
-	// 					recipientType: "signer"
-	// 				},
-	// 				{
-	// 					name: "Multi Bulk Recipient::cc",
-	// 					email: "multiBulkRecipients-cc@docusign.com",
-	// 					roleName: "cc",
-	// 					routingOrder: "1",
-	// 					status: "created",
-	// 					deliveryMethod: "email",
-	// 					recipientId: "2",
-	// 					recipientType: "cc"
-	// 				}
-	// 			]
-	// 	}
-	// })
-
+	await envelopesApi.updateNotificationSettings(args.accountId, envelopeId, {
+		"expirations": {
+			"expireAfter": "20",
+			"expireEnabled": "true",
+			"expireWarn": "10"
+		}
+	})
 
 	console.log(`Envelope was created. EnvelopeId ${envelopeId}`);
 
@@ -211,13 +206,6 @@ const bulkSendEnvelopeForSigning = async (args) => {
 	await sleep(10000)
 
 	results = await bulkEnvelopesApi.getBulkSendBatchStatus(args.accountId, bulkResult.batchId)
-	// // Step 3. create the recipient view, the embedded signing
-	// let viewRequest = makeRecipientViewRequest(args.envelopeArgs);
-	// // Call the CreateRecipientView API
-	// // Exceptions will be caught by the calling function
-	// results = await envelopesApi.createRecipientView(args.accountId, envelopeId, {
-	//   recipientViewRequest: viewRequest,
-	// });
   
 	return results;
   };
@@ -245,11 +233,9 @@ const bulkSendEnvelopeForSigning = async (args) => {
   
 	// create the envelope definition
 	let env = new docusign.EnvelopeDefinition();
+	env.envelopeIdStamping = "true"
 	env.emailSubject = args.envName;
   
-
-
-
 
 	let doc1 = new docusign.Document();
 	doc1.documentBase64 = args.docFiles
@@ -259,57 +245,18 @@ const bulkSendEnvelopeForSigning = async (args) => {
 
 
 	// add the documents
-	
-
-	// doc1.documentBase64 = args.docFiles;
-	// doc1.name = args.inputFileNames;
-	// doc1.fileExtension = "pdf";
-	// doc1.documentId = "3";
   
 	// The order in the docs array determines the order in the envelope
 	env.documents = [doc1];
-  
-	// Create a signer recipient to sign the document, identified by name and email
-	// We set the clientUserId to enable embedded signing for the recipient
-	// We're setting the parameters via the object creation
 
-	env.recipients = {
-		signers: [
-			{
-				name: "Multi Bulk Recipient::signer",
-				email: "multiBulkRecipients-signer@docusign.com",
-				roleName: "signer",
-				routingOrder: "1",
-				status: "created",
-				deliveryMethod: "email",
-				recipientId: "1",
-				recipientType: "signer"
-			},
-			{
-				name: "Multi Bulk Recipient::cc",
-				email: "multiBulkRecipients-cc@docusign.com",
-				roleName: "cc",
-				routingOrder: "1",
-				status: "created",
-				deliveryMethod: "email",
-				recipientId: "2",
-				recipientType: "cc"
-			}
-		]
-}
-  
-  
-	// Add the recipient to the envelope object
-	// let recipients = docusign.Recipients.constructFromObject({
-	//   signers: [signer1],
-	// });
-	// env.recipients = recipients;
   
 	// Request that the envelope be sent by setting |status| to "sent".
 	// To request that the envelope be created as a draft, set to "created"
-	env.status = "sent";
+	env.status = "created";
 	
-  //   env.expireDateTime = args.expireDateTime
+	// env.notification.expirations.expireEnable = "true";
+    // env.notification.expirations.expireAfter = args.expireAfter;
+	// env.notification.expirations.expireWarn = 5;
   
   
 	return env;
