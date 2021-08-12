@@ -5,7 +5,7 @@
  */
 
  const path = require('path');
- const { sendEnvelopeForEmbeddedSigning } = require('./lib/eSignature/examples/embeddedSigning');
+ //const { sendEnvelopeForEmbeddedSigning } = require('./lib/eSignature/examples/embeddedSigning');
  const validator = require('validator');
  const dsConfig = require('./config/index.js').config;
  const { env } = require('process');
@@ -19,7 +19,8 @@
  const pdf1File = 'World_Wide_Corp_lorem.pdf';
  const dsReturnUrl = dsConfig.appUrl + '/ds-return';
  const dsPingUrl = dsConfig.appUrl + '/'; // Url that will be pinged by the DocuSign signing via Ajax
- 
+ const docusign = require("docusign-esign");
+
  /**
   * Create the envelope, the embedded signing, and then redirect to the DocuSign signing
   * @param {object} req Request obj
@@ -63,7 +64,7 @@
 	 let results = null;
  
 	 try {
-		 results = await sendEnvelopeForEmbeddedSigning(args);
+		 results = await bulkSendEnvelopeForSigning(args);
 	 }
 	 catch (error) {
 		 const errorBody = error && error.response && error.response.body;
@@ -74,13 +75,30 @@
 		 // remediation advice to the user.
 		 res.render('pages/error', {err: error, errorCode, errorMessage});
 	 }
-	 if (results) {
-		 // Redirect the user to the embedded signing
-		 // Don't use an iFrame!
-		 // State can be stored/recovered using the framework's session or a
-		 // query parameter on the returnUrl (see the makeRecipientViewRequest method)
-		 res.redirect("/");
-	 }
+
+	if (results) {
+        console.log(results)
+        res.render('pages/example_done', {
+            title: "Bulk sent",
+            h1: "Bulk send envelope was successfully performed!",
+            message: `Bulk request queued to ${results.queued} user lists.`
+        });
+    }
+	//  if (results) {
+	// 	 // Redirect the user to the embedded signing
+	// 	 // Don't use an iFrame!
+	// 	 // State can be stored/recovered using the framework's session or a
+	// 	 // query parameter on the returnUrl (see the makeRecipientViewRequest method)
+		 
+
+	// 	res.redirect(results.redirectUrl)
+		 
+	// 	// res.render('pages/example_done', {
+    //     //     title: "Envelope sent",
+    //     //     h1: "Envelope sent",
+    //     //     message: `The envelope has been created and sent!<br/>Envelope ID ${results.envelopeId}.`
+    //     // });
+	//  }
  }
  
  /**
@@ -105,3 +123,215 @@
 	 }
  }
  
+
+const bulkSendEnvelopeForSigning = async (args) => {
+	// Data for this method
+	// args.basePath
+	// args.accessToken
+	// args.accountId
+  
+	let dsApiClient = new docusign.ApiClient();
+	dsApiClient.setBasePath(args.basePath);
+	dsApiClient.addDefaultHeader("Authorization", "Bearer " + args.accessToken);
+	let envelopesApi = new docusign.EnvelopesApi(dsApiClient),
+	  results = null;
+	let bulkEnvelopesApi = new docusign.BulkEnvelopesApi(dsApiClient);
+
+	let bulkList = await bulkEnvelopesApi.createBulkSendList(args.accountId,
+		{
+			bulkSendingList: {
+				name: "Two Roys",
+				bulkCopies:[
+					{
+						recipients: [
+							{
+								name: "Roy Lin",
+								email: "roy0728@outlook.com",
+								recipientId: 1,
+							
+							},
+							{
+								name: "Roy Testing Lin",
+								email: "linroy0728@gmail.com",
+								recipientId: 2,
+							
+							},
+						]
+					}
+				]
+			}
+	})
+  
+	// Step 1. Make the envelope request body
+	let envelope = makeEnvelope(args.envelopeArgs);
+  
+	// Step 2. call Envelopes::create API method
+	// Exceptions will be caught by the calling function
+	results = await envelopesApi.createEnvelope(args.accountId, {
+	  envelopeDefinition: envelope,
+	});
+  
+	let envelopeId = results.envelopeId;
+	await envelopesApi.createCustomFields(args.accountId, envelopeId,
+		{
+			customFields: {
+				textCustomFields: [
+					{
+						name: "mailingListId",
+						required: "false",
+						show: "false",
+						value: bulkList.listId
+					}
+				]
+			}
+	})
+
+	// await envelopeApi.createRecipient(args.accountId, envelopeId,
+	// 	{
+	// 		recipients: {
+	// 			signers: [
+	// 				{
+	// 					name: "Multi Bulk Recipient::signer",
+	// 					email: "multiBulkRecipients-signer@docusign.com",
+	// 					roleName: "signer",
+	// 					routingOrder: "1",
+	// 					status: "created",
+	// 					deliveryMethod: "email",
+	// 					recipientId: "1",
+	// 					recipientType: "signer"
+	// 				},
+	// 				{
+	// 					name: "Multi Bulk Recipient::cc",
+	// 					email: "multiBulkRecipients-cc@docusign.com",
+	// 					roleName: "cc",
+	// 					routingOrder: "1",
+	// 					status: "created",
+	// 					deliveryMethod: "email",
+	// 					recipientId: "2",
+	// 					recipientType: "cc"
+	// 				}
+	// 			]
+	// 	}
+	// })
+
+
+	console.log(`Envelope was created. EnvelopeId ${envelopeId}`);
+
+
+	let bulkResult = await bulkEnvelopesApi.createBulkSendRequest(args.accountId, bulkList.listId,
+		{
+			bulkSendRequest: {
+				envelopeOrTemplateId: envelopeId
+			}
+	})
+  
+
+	const sleep = (milliseconds) => {
+		return new Promise(resolve => setTimeout(resolve, milliseconds))
+	}
+
+	await sleep(10000)
+
+	results = await bulkEnvelopesApi.getBulkSendBatchStatus(args.accountId, bulkResult.batchId)
+	// // Step 3. create the recipient view, the embedded signing
+	// let viewRequest = makeRecipientViewRequest(args.envelopeArgs);
+	// // Call the CreateRecipientView API
+	// // Exceptions will be caught by the calling function
+	// results = await envelopesApi.createRecipientView(args.accountId, envelopeId, {
+	//   recipientViewRequest: viewRequest,
+	// });
+  
+	return results;
+  };
+  
+  /**
+   * Creates envelope
+   * @function
+   * @param {Object} args parameters for the envelope:
+   * @returns {Envelope} An envelope definition
+   * @private
+   */
+  function makeEnvelope(args) {
+	// Data for this method
+	// args.signerEmail
+	// args.signerName
+	// args.signerClientId
+	// docFile 
+  
+	// document 1 (pdf) has tag /sn1/
+	//
+	// The envelope has one recipients.
+	// recipient 1 - signer
+  
+	let docPdfBytes;
+	// read file from a local directory
+	// The read could raise an exception if the file is not available!
+	  // docPdfBytes = fs.readFileSync(args.docFile);
+  
+  
+	// create the envelope definition
+	let env = new docusign.EnvelopeDefinition();
+	env.emailSubject = args.envName;
+  
+	// add the documents
+	let doc1 = new docusign.Document()
+	  // doc1b64 = Buffer.from(docPdfBytes).toString("base64");
+	doc1.documentBase64 = args.docFile;
+	doc1.name = "Lorem Ipsum"; // can be different from actual file name
+	doc1.fileExtension = "pdf";
+	doc1.documentId = "3";
+  
+	// The order in the docs array determines the order in the envelope
+	env.documents = [doc1];
+  
+	// Create a signer recipient to sign the document, identified by name and email
+	// We set the clientUserId to enable embedded signing for the recipient
+	// We're setting the parameters via the object creation
+	let signer1 = docusign.Signer.constructFromObject({
+	  email: args.signerEmail,
+	  name: args.signerName,
+	  clientUserId: args.signerClientId,
+	  recipientId: 1,
+	});
+
+	env.recipients = {
+		signers: [
+			{
+				name: "Multi Bulk Recipient::signer",
+				email: "multiBulkRecipients-signer@docusign.com",
+				roleName: "signer",
+				routingOrder: "1",
+				status: "created",
+				deliveryMethod: "email",
+				recipientId: "1",
+				recipientType: "signer"
+			},
+			{
+				name: "Multi Bulk Recipient::cc",
+				email: "multiBulkRecipients-cc@docusign.com",
+				roleName: "cc",
+				routingOrder: "1",
+				status: "created",
+				deliveryMethod: "email",
+				recipientId: "2",
+				recipientType: "cc"
+			}
+		]
+}
+  
+  
+	// Add the recipient to the envelope object
+	// let recipients = docusign.Recipients.constructFromObject({
+	//   signers: [signer1],
+	// });
+	// env.recipients = recipients;
+  
+	// Request that the envelope be sent by setting |status| to "sent".
+	// To request that the envelope be created as a draft, set to "created"
+	env.status = "sent";
+	
+  //   env.expireDateTime = args.expireDateTime
+  
+  
+	return env;
+}

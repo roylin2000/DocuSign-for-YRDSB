@@ -13,7 +13,7 @@
  const eg = 'eg111'; // This example reference.
  const mustAuthenticate = '/ds/mustAuthenticate';
  const minimumBufferMin = 3;
- const signerClientId = 1000; // The id of the signer within this application.
+ const signerClientId = 1; // The id of the signer within this application.
  const demoDocsPath = path.resolve(__dirname, 'demo_documents');
  const pdf1File = 'My_Own_Doc.pdf';
  const dsReturnUrl = dsConfig.appUrl + '/ds-return';

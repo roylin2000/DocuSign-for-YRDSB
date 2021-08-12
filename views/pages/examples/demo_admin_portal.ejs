@@ -10,18 +10,6 @@
 <form class="eg" action="" method="post" data-busy="form">
 
 	<div class="form-group">
-		<label for="signerEmail">Signer Email</label>
-		<input type="email" class="form-control" id="signerEmail" name="signerEmail"
-			  aria-describedby="emailHelp" placeholder="pat@example.com" required
-			  value="<%= locals.dsConfig.signerEmail %>">
-		<small id="emailHelp" class="form-text text-muted">Put your DocuSign email here</small>
-	</div>
-	<div class="form-group">
-		<label for="signerName">Signer Name</label>
-		<input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-			  value="<%= locals.dsConfig.signerName %>" required>
-	</div>
-	<div class="form-group">
 		<label for="docName">Document Name</label>
 		<input type="text" class="form-control" id="docName" placeholder="Museum Field Trip Form" name="docName"
 			  value="" required>
@@ -34,14 +22,7 @@
 
 	<input type="hidden" id="userInfo" name="userInfo" value=<%= locals.user.email %>> 
 
-	</div>
-		<div class = "header two"><text > Upcoming Submissions</text></div>
-	</div>
 
-	<button type="submit" class="btn sidebar">
-		<span class="material-icons red600"> schedule </span>
-		Upcoming Submissions
-	</button>
 
 	<!-- file input -->
 	<input type="file" id="inputFile" name="inputFile" multiple>
@@ -58,39 +39,16 @@
 			}
 
 			fileReader.readAsDataURL(fileList[0])
-			
 		});
 	</script>
+	<!-- file input -->
+
+	<button>
+		submit
+	</button>
 
 	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
 
-	<!-- <div class="form row layout">
-		<div class="label name"><text > </text></div>
-		<div class="label name"><text >Name</text></div>
-		<div class="label status"><text >Status</text></div>
-		<div class="label type"><text>Type</text></div>
-		<div class="label deadline"><text>Deadline</text></div>
-		<input type="hidden" id="envID" name="envID" value="">
-		<ul class="forms list">
-			<%# forms?.forEach( doc => { %>
-			<li class="form item">
-                <script>
-                    setEnvID = function(envID) {
-                        var elem = document.getElementById("envID");
-                        elem.value = envID;
-                    }
-                </script>
-
-				<button onclick=setEnvID("<%#=doc.envelopeId%>")>
-					<div class="label name"><strong><%#= doc.emailSubject%></strong></div>
-					<div class="label status"><%#= doc.status %></div>
-					<div class="label type"><%#= doc.folders[0].folderId %></div>
-					<div class="label deadline"><%#= doc.expireDateTime %> </div>
-				</button>
-			</li>
-			<%# }); %>
-		</ul>
-	</div> -->
   
 </form>
 
