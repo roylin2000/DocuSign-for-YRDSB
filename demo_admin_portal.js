@@ -41,17 +41,10 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	 console.log("base path: " + req.session.basePath)
-	 console.log("accountId: " + req.session.accountId)
-	 console.log("user: " + req.user)
 
 	 const envelopeArgs = {
-		 signerEmail: validator.escape(body.signerEmail),
-		 signerName: validator.escape(body.signerName),
-		 signerClientId: signerClientId,
-		 dsReturnUrl: dsReturnUrl,
-		 dsPingUrl: dsPingUrl,
-		 docFile: body.fileBase64.substr(body.fileBase64.indexOf(',')+1),
+		 inputFileNames: body.inputFiles,
+		 docFiles: body.fileBase64.substr(body.fileBase64.indexOf(',')+1),
 		 envName: body.docName,
 		 expireDateTime: body.docDeadline,
 	 };
@@ -84,21 +77,6 @@
             message: `Bulk request queued to ${results.queued} user lists.`
         });
     }
-	//  if (results) {
-	// 	 // Redirect the user to the embedded signing
-	// 	 // Don't use an iFrame!
-	// 	 // State can be stored/recovered using the framework's session or a
-	// 	 // query parameter on the returnUrl (see the makeRecipientViewRequest method)
-		 
-
-	// 	res.redirect(results.redirectUrl)
-		 
-	// 	// res.render('pages/example_done', {
-    //     //     title: "Envelope sent",
-    //     //     h1: "Envelope sent",
-    //     //     message: `The envelope has been created and sent!<br/>Envelope ID ${results.envelopeId}.`
-    //     // });
-	//  }
  }
  
  /**
@@ -263,23 +241,30 @@ const bulkSendEnvelopeForSigning = async (args) => {
 	// The envelope has one recipients.
 	// recipient 1 - signer
   
-	let docPdfBytes;
-	// read file from a local directory
-	// The read could raise an exception if the file is not available!
-	  // docPdfBytes = fs.readFileSync(args.docFile);
   
   
 	// create the envelope definition
 	let env = new docusign.EnvelopeDefinition();
 	env.emailSubject = args.envName;
   
-	// add the documents
-	let doc1 = new docusign.Document()
-	  // doc1b64 = Buffer.from(docPdfBytes).toString("base64");
-	doc1.documentBase64 = args.docFile;
-	doc1.name = "Lorem Ipsum"; // can be different from actual file name
+
+
+
+
+	let doc1 = new docusign.Document();
+	doc1.documentBase64 = args.docFiles
+	doc1.name = args.inputFileNames;
 	doc1.fileExtension = "pdf";
-	doc1.documentId = "3";
+	doc1.documentId = 1;
+
+
+	// add the documents
+	
+
+	// doc1.documentBase64 = args.docFiles;
+	// doc1.name = args.inputFileNames;
+	// doc1.fileExtension = "pdf";
+	// doc1.documentId = "3";
   
 	// The order in the docs array determines the order in the envelope
 	env.documents = [doc1];
@@ -287,12 +272,6 @@ const bulkSendEnvelopeForSigning = async (args) => {
 	// Create a signer recipient to sign the document, identified by name and email
 	// We set the clientUserId to enable embedded signing for the recipient
 	// We're setting the parameters via the object creation
-	let signer1 = docusign.Signer.constructFromObject({
-	  email: args.signerEmail,
-	  name: args.signerName,
-	  clientUserId: args.signerClientId,
-	  recipientId: 1,
-	});
 
 	env.recipients = {
 		signers: [
