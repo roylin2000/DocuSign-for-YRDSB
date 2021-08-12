@@ -3,18 +3,36 @@
 
 <% include ../../partials/docBody %>
 
-<header>
+<!-- <header>
 	<img  src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/York_Region_District_School_Board_Logo.svg/1200px-York_Region_District_School_Board_Logo.svg.png" alt="School Board Logo">
-</header>
+</header> -->
 
 <form class="eg" action="" method="post" data-busy="form">
 
-	<!-- Don't worry about these two inputs, they're hidden -->
-	<input type="hidden" class="form-control" id="signerEmail" name="signerEmail"
-          aria-describedby="emailHelp" placeholder="pat@example.com" required
-          value="<%= locals.dsConfig.signerEmail %>">
-	<input type="hidden" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-	value="<%= locals.dsConfig.signerName %>" required>
+	<div class="form-group">
+		<label for="signerEmail">Signer Email</label>
+		<input type="email" class="form-control" id="signerEmail" name="signerEmail"
+			  aria-describedby="emailHelp" placeholder="pat@example.com" required
+			  value="<%= locals.dsConfig.signerEmail %>">
+		<small id="emailHelp" class="form-text text-muted">Put your DocuSign email here</small>
+	</div>
+	<div class="form-group">
+		<label for="signerName">Signer Name</label>
+		<input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+			  value="<%= locals.dsConfig.signerName %>" required>
+	</div>
+	<div class="form-group">
+		<label for="docName">Document Name</label>
+		<input type="text" class="form-control" id="docName" placeholder="Museum Field Trip Form" name="docName"
+			  value="" required>
+	</div>
+	<div class="form-group">
+		<label for="docDeadline">Deadline</label>
+		<input type="datetime-local" class="form-control" id="docDeadline" name="docDeadline"
+			  value="" required>
+	</div>
+
+	<input type="hidden" id="userInfo" name="userInfo" value=<%= locals.user.email %>> 
 
 	</div>
 		<div class = "header two"><text > Upcoming Submissions</text></div>

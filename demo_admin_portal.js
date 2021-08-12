@@ -40,7 +40,9 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	 //console.log(body.fileBase64.substr(body.fileBase64.indexOf(',')+1))
+	 console.log("base path: " + req.session.basePath)
+	 console.log("accountId: " + req.session.accountId)
+	 console.log("user: " + req.user)
 
 	 const envelopeArgs = {
 		 signerEmail: validator.escape(body.signerEmail),
@@ -49,7 +51,8 @@
 		 dsReturnUrl: dsReturnUrl,
 		 dsPingUrl: dsPingUrl,
 		 docFile: body.fileBase64.substr(body.fileBase64.indexOf(',')+1),
-		 envName: "test pdf upload"
+		 envName: body.docName,
+		 expireDateTime: body.docDeadline,
 	 };
 	 const args = {
 		 accessToken: req.user.accessToken,
@@ -76,7 +79,7 @@
 		 // Don't use an iFrame!
 		 // State can be stored/recovered using the framework's session or a
 		 // query parameter on the returnUrl (see the makeRecipientViewRequest method)
-		 res.redirect(results.redirectUrl);
+		 res.redirect("/");
 	 }
  }
  
@@ -93,9 +96,6 @@
 		 res.render('pages/examples/demo_admin_portal', {
 			 eg: eg, csrfToken: req.csrfToken(),
 			 title: "Use embedded signing",
-			 sourceFile: path.basename(__filename),
-			 sourceUrl: 'https://github.com/docusign/code-examples-node/blob/master/eg001EmbeddedSigning.js',
-			 documentation: dsConfig.documentation + eg,
 			 showDoc: dsConfig.documentation
 		 });
 	 } else {

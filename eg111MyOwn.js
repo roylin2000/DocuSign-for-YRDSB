@@ -103,8 +103,7 @@
 	let dsApiClient = new docusign.ApiClient();
 	dsApiClient.setBasePath(args.basePath);
 	dsApiClient.addDefaultHeader("Authorization", "Bearer " + args.accessToken);
-	let envelopesApi = new docusign.EnvelopesApi(dsApiClient),
-    	results = null;
+	let envelopesApi = new docusign.EnvelopesApi(dsApiClient)
 
 	//** example list of forms to sign
 	var forms = [
@@ -119,7 +118,7 @@
 	// 	folder_ids: [out_for_signature]
 	// }
 
-	var envInfo = await (await envelopesApi.listStatusChanges(args.accountId, {folderIds:["out_for_signature"]})).envelopes
+	var envInfo = await (await envelopesApi.listStatusChanges(args.accountId, {folderIds:["awaiting_my_signature"]})).envelopes
 
 	console.log(envInfo)
 
