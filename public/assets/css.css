@@ -634,3 +634,35 @@ you log in */
   position: absolute;
   clip: rect(520px, 1300px, 1000px, 0px);
 }
+
+/* finish signing pages and others */
+.successPage {
+  margin-top: 50px;
+  padding-bottom: 10px;
+}
+.continueButton {
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 8px 12px;
+  background-color: red;
+  color: white;
+}
+.continueButton:hover {
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 8px 12px;
+  background-color: rgb(248, 91, 91);
+  color: white;
+}
+.btn.btn-docu.btn-lg {
+  border-radius: 5px;
+  padding: 8px 12px;
+  background-color: red;
+  color: white;
+}
+.btn.btn-docu.btn-lg:hover {
+  border-radius: 5px;
+  padding: 8px 12px;
+  background-color: rgb(248, 91, 91);
+  color: white;
+}
