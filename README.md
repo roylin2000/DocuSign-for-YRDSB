@@ -1,4 +1,4 @@
-# DOCUSIGN FOR YRDSB STUDENTS
+# DOCUSIGN FOR YRDSB
 
 ### Introduction:
 
