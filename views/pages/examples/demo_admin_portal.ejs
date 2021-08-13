@@ -1,0 +1,117 @@
+<% include ../../partials/examplesHead %>
+<!-- <h4>0. My Own Example</h4> -->
+<body>
+	<div class="vl"></div>
+</body>
+<% include ../../partials/docBody %>
+
+<!-- <header>
+	<img  src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/York_Region_District_School_Board_Logo.svg/1200px-York_Region_District_School_Board_Logo.svg.png" alt="School Board Logo">
+</header> -->
+<!-- <body class = "pageTop">
+	<img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/York_Region_District_School_Board_Logo.svg/1200px-York_Region_District_School_Board_Logo.svg.png" height = "50" width="100" alt="School Board Logo">
+	<button class = "logout">
+		Logout
+	</button>
+</body> -->
+
+<form class="eg" action="" method="post" data-busy="form">
+
+	</div>
+		<div class = "header two"><text > Upload Your Documents</text></div>
+	</div>
+	
+	<a class="btn sidebarOneo" href="admin_portal">
+		<span class="material-icons red600"> upload_file </span>
+		Send Out Your Forms
+	</a>
+
+	<a class="btn sidebarTwoo" href="/upcoming_submissions">
+		<span class="material-icons red600"> schedule </span>
+		Upcoming Submissions
+	</a>
+
+	<a class="btn sidebarThreeo" href="submitted_page">
+		<span class="material-icons red600"> cloud_done </span>
+		Submitted Documents
+	</a>
+
+	<a class="btn sidebarFouro" href="volunteer_sending">
+		<span class="material-icons red600"> create_new_folder </span>
+		Volunteer Forms
+	</a>
+
+	<div class="form-group">
+		<label for="docName">Document Name</label>
+		<input type="text" class="form-control" id="docName" placeholder="Insert your document name here" name="docName"
+			  value="" required>
+	</div>
+	<div class="form-group">
+		<label for="docDeadline">Number of days until expiration</label>
+		<input type="number" class="form-control" id="docDeadline" name="docDeadline"
+			  value=0 required>
+	</div>
+
+	<input type="hidden" id="userInfo" name="userInfo" value=<%= locals.user.email %>> 
+
+	<!-- file input -->
+	<label class = "fileLabel" for="inputFiles">Document</label>
+	<input type="file" id="inputFiles" name="inputFiles">
+	<input type="hidden" id="fileBase64" name="fileBase64" value="">
+	<script>
+		const fileSelector = document.getElementById('inputFiles');
+		fileSelector.addEventListener('change', (event) => {
+		  	const fileList = event.target.files;
+			var fileReader = new FileReader();
+
+			fileReader.onload = () => {
+				var elem = document.getElementById("fileBase64");
+				elem.value = fileReader.result
+			}
+		
+			fileReader.readAsDataURL(fileList[0])
+			
+
+			
+		});
+	</script>
+
+	<label for="bulkExcelFile">Excel/CSV</label>
+	<input type="file" id="bulkExcelFile" name="bulkExcelFile"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" /> 
+	<input type="hidden" id="bulkJSONFile" name="bulkJSONFile" value="">
+	<script>
+		const csvSelector = document.getElementById('bulkExcelFile');
+		csvSelector.addEventListener('change', (event) => {
+			const files = event.target.files;
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				let data = e.target.result;
+
+				let workbook = XLSX.read(data, {
+					type: "binary"
+				});
+		
+				let rowObject = XLSX.utils.sheet_to_row_object_array(
+					workbook.Sheets[workbook.SheetNames[0]]
+				);
+				let jsonObject = JSON.stringify(rowObject);
+
+				var elem = document.getElementById("bulkJSONFile");
+				elem.value = jsonObject;
+				//console.log(jsonObject)
+			}
+			reader.readAsBinaryString(files[0]);
+		});
+	</script>
+	<!-- file input -->
+
+	<button>
+		submit
+	</button>
+
+	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
+
+  
+</form>
+
+<% include ../../partials/examplesFoot.ejs %>

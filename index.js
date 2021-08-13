@@ -19,28 +19,10 @@ const helmet = require('helmet'); // https://expressjs.com/en/advanced/best-prac
 const moment = require('moment');
 const csrf = require('csurf'); // https://www.npmjs.com/package/csurf
 
-const eg001 = require('./eg001EmbeddedSigning');
-
-const { 
-  eg002, eg003, eg004, eg005, eg006, eg007, eg008, 
-  eg009, eg010, eg011, eg012, eg013, eg014, eg015,
-  eg016, eg017, eg018, eg019, eg020, eg021, eg022,
-  eg023, eg024, eg025, eg026, eg027, eg028, eg029,
-  eg030, eg031, eg032, eg033, eg034, eg035,
-} = require("./lib/eSignature/controllers");
-
-const { 
-  eg001click, eg002click, eg003click,
-  eg004click, eg005click,
-} = require("./lib/click/controllers");
-
-const { 
-  eg001rooms, eg002rooms, eg003rooms,
-  eg004rooms, eg005rooms, eg006rooms,
-  eg007rooms, eg008rooms, eg009rooms,
-} = require("./lib/rooms/controllers");
-
-const { eg001monitor } = require("./lib/monitor/controllers/index");
+const upcoming_submissions = require('./upcoming_submissions');
+const admin_portal = require('./demo_admin_portal');
+const submitted_page = require('./submitted_docs');
+const volunteer_sending = require('./volunteer_sending');
 
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || 'localhost';
@@ -97,111 +79,15 @@ let app = express()
   .get('/ds-return', commonControllers.returnController)
   .use(csrfProtection) // CSRF protection for the following routes
 ;
-if (dsConfig.examplesApi.isRoomsApi) {
-  app.get('/eg001rooms', eg001rooms.getController)
-    .post('/eg001rooms', eg001rooms.createController)
-    .get('/eg002rooms', eg002rooms.getController)
-    .post('/eg002rooms', eg002rooms.createController)
-    .get('/eg003rooms', eg003rooms.getController)
-    .post('/eg003rooms', eg003rooms.createController)
-    .get('/eg004rooms', eg004rooms.getController)
-    .post('/eg004rooms', eg004rooms.createController)
-    .get('/eg005rooms', eg005rooms.getController)
-    .post('/eg005rooms', eg005rooms.createController)
-    .get('/eg006rooms', eg006rooms.getController)
-    .post('/eg006rooms', eg006rooms.createController)
-    .get('/eg007rooms', eg007rooms.getController)
-    .post('/eg007rooms', eg007rooms.createController)
-    .get('/eg008rooms', eg008rooms.getController)
-    .post('/eg008rooms', eg008rooms.createController)
-    .get('/eg009rooms', eg009rooms.getController)
-    .post('/eg009rooms', eg009rooms.createController)
-} else if (dsConfig.examplesApi.isClickApi) {
-  app.get('/eg001', eg001click.getController)
-    .post('/eg001', eg001click.createController)
-    .get('/eg002', eg002click.getController)
-    .post('/eg002', eg002click.createController)
-    .get('/eg003', eg003click.getController)
-    .post('/eg003', eg003click.createController)
-    .get('/eg004', eg004click.getController)
-    .post('/eg004', eg004click.createController)
-    .get('/eg005', eg005click.getController)
-    .post('/eg005', eg005click.createController)
-} else if (dsConfig.examplesApi.isMonitorApi) {
-  app.get('/eg001', eg001monitor.getController)
-    .post('/eg001', eg001monitor.createController)
-} else {
-  app.get('/eg001', eg001.getController)
-    .post('/eg001', eg001.createController)
-    .get('/eg002', eg002.getController)
-    .post('/eg002', eg002.createController)
-    .get('/eg003', eg003.getController)
-    .post('/eg003', eg003.createController)
-    .get('/eg004', eg004.getController)
-    .post('/eg004', eg004.createController)
-    .get('/eg005', eg005.getController)
-    .post('/eg005', eg005.createController)
-    .get('/eg006', eg006.getController)
-    .post('/eg006', eg006.createController)
-    .get('/eg007', eg007.getController)
-    .post('/eg007', eg007.createController)
-    .get('/eg008', eg008.getController)
-    .post('/eg008', eg008.createController)
-    .get('/eg009', eg009.getController)
-    .post('/eg009', eg009.createController)
-    .get('/eg010', eg010.getController)
-    .post('/eg010', eg010.createController)
-    .get('/eg011', eg011.getController)
-    .post('/eg011', eg011.createController)
-    .get('/eg012', eg012.getController)
-    .post('/eg012', eg012.createController)
-    .get('/eg013', eg013.getController)
-    .post('/eg013', eg013.createController)
-    .get('/eg014', eg014.getController)
-    .post('/eg014', eg014.createController)
-    .get('/eg015', eg015.getController)
-    .post('/eg015', eg015.createController)
-    .get('/eg016', eg016.getController)
-    .post('/eg016', eg016.createController)
-    .get('/eg017', eg017.getController)
-    .post('/eg017', eg017.createController)
-    .get('/eg018', eg018.getController)
-    .post('/eg018', eg018.createController)
-    .get('/eg019', eg019.getController)
-    .post('/eg019', eg019.createController)
-    .get('/eg020', eg020.getController)
-    .post('/eg020', eg020.createController)
-    .get('/eg021', eg021.getController)
-    .post('/eg021', eg021.createController)
-    .get('/eg022', eg022.getController)
-    .post('/eg022', eg022.createController)
-    .get('/eg023', eg023.getController)
-    .post('/eg023', eg023.createController)
-    .get('/eg024', eg024.getController)
-    .post('/eg024', eg024.createController)
-    .get('/eg025', eg025.getController)
-    .post('/eg025', eg025.createController)
-    .get('/eg026', eg026.getController)
-    .post('/eg026', eg026.createController)
-    .get('/eg027', eg027.getController)
-    .post('/eg027', eg027.createController)
-    .get('/eg028', eg028.getController)
-    .post('/eg028', eg028.createController)
-    .get('/eg029', eg029.getController)
-    .post('/eg029', eg029.createController)
-    .get('/eg030', eg030.getController)
-    .post('/eg030', eg030.createController)
-    .get('/eg031', eg031.getController)
-    .post('/eg031', eg031.createController)
-    .get('/eg032', eg032.getController)
-    .post('/eg032', eg032.createController)
-    .get('/eg033', eg033.getController)
-    .post('/eg033', eg033.createController)
-    .get('/eg034', eg034.getController)
-    .post('/eg034', eg034.createController)
-    .get('/eg035', eg035.getController)
-    .post('/eg035', eg035.createController)
-}
+
+app.get('/submitted_page', submitted_page.getController)
+	.post('/submitted_page', submitted_page.createController)
+	.get('/admin_portal', admin_portal.getController)
+	.post('/admin_portal', admin_portal.createController)
+	.get('/upcoming_submissions', upcoming_submissions.getController)
+	.post('/upcoming_submissions', upcoming_submissions.createController)
+	.get('/volunteer_sending', volunteer_sending.getController)
+	.post('/volunteer_sending', volunteer_sending.createController)
 
 function dsLoginCB1(req, res, next) { req.dsAuthCodeGrant.oauth_callback1(req, res, next) }
 function dsLoginCB2(req, res, next) { req.dsAuthCodeGrant.oauth_callback2(req, res, next) }

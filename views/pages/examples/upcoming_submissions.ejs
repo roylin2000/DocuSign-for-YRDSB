@@ -1,0 +1,86 @@
+<% include ../../partials/examplesHead %>
+<!-- <h4>0. My Own Example</h4> -->
+<body>
+	<div class="vl"></div>
+</body>
+<% include ../../partials/docBody %>
+
+<!-- <body class = "pageTop">
+	<img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/York_Region_District_School_Board_Logo.svg/1200px-York_Region_District_School_Board_Logo.svg.png" height = "50" width="100" alt="School Board Logo">
+	<button class = "logout">
+		Logout
+	</button>
+</body> -->
+
+<form class="eg" action="" method="post" data-busy="form">
+
+<!-- This is essential, please leave it here -->
+	<input type="hidden" class="form-control" id="signerEmail" name="signerEmail"
+		aria-describedby="emailHelp" placeholder="pat@example.com" required
+		value="<%= locals.user.email %>">
+	<input type="hidden" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+		value="<%= locals.user.name %>" required>
+	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
+
+<!-- form has functions while div is just a box -->
+	</div>
+		<div class = "header two"><text > Upcoming Submissions</text></div>
+	</div>
+
+	<a class="btn sidebarOnes" href="admin_portal">
+		<span class="material-icons red600"> upload_file </span>
+		Send Out Your Forms
+	</a>
+
+	<a class="btn sidebarTwos" href="/upcoming_submissions">
+		<span class="material-icons red600"> schedule </span>
+		Upcoming Submissions
+	</a>
+
+	<a class="btn sidebarThrees" href="submitted_page">
+		<span class="material-icons red600"> cloud_done </span>
+		Submitted Documents
+	</a>
+
+	<a class="btn sidebarFours" href="volunteer_sending">
+		<span class="material-icons red600"> create_new_folder </span>
+		Volunteer Forms
+	</a>
+
+	<!-- <button type="button" class="btn sidebarTwo">
+		<span class="material-icons red600"> schedule </span>
+		Upcoming Submissions
+	</button> -->
+
+	<div class="form row layout">
+		<div class="labelName"><text >Document Name</text></div>
+		<div class="labelStatus"><text >Status</text></div>
+		<div class="labelDeadline"><text>Days Until Expiration</text></div>
+	  	<!-- <text class="label name">Name</text>
+		<text class="label status">Status</text>
+		<text class="label type">Type</text>
+		<text class="label deadline">Deadline</text> -->
+		<input type="hidden" id="envID" name="envID" value="">
+		<ul class="forms list">
+			<% forms?.forEach( doc => { %>
+			<li class="form item">
+                <script>
+                    setEnvID = function(envID) {
+                        var elem = document.getElementById("envID");
+                        elem.value = envID;
+                    }
+                </script>
+
+				<button onclick=setEnvID("<%=doc.envelopeId%>")>
+					<div class="label name"><%= doc.emailSubject%> </div>
+					<div class="label status"> Incomplete </div>
+					<div class="label deadline"><%= doc.expireAfter %> </div>
+				</button>
+			</li>
+			<% }); %>
+		</ul>
+	</div>
+  
+</form>
+
+<% include ../../partials/examplesFoot.ejs %>

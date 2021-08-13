@@ -1,0 +1,62 @@
+<% include ../../partials/examplesHead %>
+
+
+<% include ../../partials/docBody %>
+
+
+<form class="eg" action="" method="post" data-busy="form">
+  
+  </div>
+		<div class = "header two"><text > Submitted Documents</text></div>
+	</div>  
+
+  <a class="btn sidebarOnef" href="admin_portal">
+		<span class="material-icons red600"> upload_file </span>
+		Send Out Your Forms
+	</a>
+
+	<a class="btn sidebarTwof" href="/upcoming_submissions">
+		<span class="material-icons red600"> schedule </span>
+		Upcoming Submissions
+	</a>
+
+	<a class="btn sidebarThreef" href="submitted_page">
+		<span class="material-icons red600"> cloud_done </span>
+		Submitted Documents
+	</a>
+
+	<a class="btn sidebarFourf" href="volunteer_sending">
+		<span class="material-icons red600"> create_new_folder </span>
+		Volunteer Forms
+	</a>
+
+	<div class="form-group">
+		<label for="companyName">Company Name</label>
+		<input type="text" class="form-control" id="companyName" name="companyName" value="" required >
+	</div>
+	<div class="form-group">
+		<label for="volunHours">Hours Volunteered</label>
+		<input type="number" class="form-control" id="volunHours" name="volunHours" value="" required>
+	</div>
+    <div class="form-group">
+      <label for="signerEmail">Signer Email</label>
+      <input type="email" class="form-control" id="signerEmail" name="signerEmail"
+             aria-describedby="emailHelp" placeholder="pat@example.com" required
+             value="">
+    </div>
+    <div class="form-group">
+      <label for="signerName">Signer Name</label>
+      <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+             value="" required>
+    </div>
+	<input type="hidden" class="form-control" id="ccEmail" name="ccEmail"
+			aria-describedby="emailHelp" value="school@yrdsb.com" required>
+	
+	<input type="hidden" class="form-control" id="ccName" placeholder="Pat Johnson" name="ccName"
+			value="school name" required>
+
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-docu">Submit</button>
+  </form>
+  
+<% include ../../partials/examplesFoot %>
