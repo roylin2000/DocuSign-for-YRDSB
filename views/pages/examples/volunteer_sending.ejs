@@ -1,0 +1,50 @@
+<% include ../../partials/examplesHead %>
+
+<h4>11. Use embedded sending</h4>
+<p>An envelope will be created in draft mode. Your browser will then be redirected to 
+   the DocuSign web tool where the envelope can be (optionally) updated and then sent.</p>
+<p>The envelope includes a pdf, Word, and HTML document. Anchor text 
+      (<a href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
+      is used to position the signing fields in the documents.</p>
+<p>DocuSign recommends that you enhance your application as needed to avoid the need 
+    for the embedded sender view.
+</p>
+<p>For example, if the sender view is used to optionally
+    add additional documents to the envelope, enhance your app to provide the 
+    needed feature (see example 13 for adding additional documents programmatically).
+</p>
+
+<% include ../../partials/docBody %>
+
+
+<form class="eg" action="" method="post" data-busy="form">
+	<div class="form-group">
+		<label for="companyName">Company Name</label>
+		<input type="text" class="form-control" id="companyName" name="companyName" value="" required >
+	</div>
+	<div class="form-group">
+		<label for="volunHours">Hours Volunteered</label>
+		<input type="number" class="form-control" id="volunHours" name="volunHours" value="" required>
+	</div>
+    <div class="form-group">
+      <label for="signerEmail">Signer Email</label>
+      <input type="email" class="form-control" id="signerEmail" name="signerEmail"
+             aria-describedby="emailHelp" placeholder="pat@example.com" required
+             value="">
+    </div>
+    <div class="form-group">
+      <label for="signerName">Signer Name</label>
+      <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+             value="" required>
+    </div>
+	<input type="hidden" class="form-control" id="ccEmail" name="ccEmail"
+			aria-describedby="emailHelp" value="school@yrdsb.com" required>
+	
+	<input type="hidden" class="form-control" id="ccName" placeholder="Pat Johnson" name="ccName"
+			value="school name" required>
+
+    <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+    <button type="submit" class="btn btn-docu">Submit</button>
+  </form>
+  
+<% include ../../partials/examplesFoot %>
