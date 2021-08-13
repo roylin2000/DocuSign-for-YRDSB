@@ -40,9 +40,6 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	 console.log(body.docDeadline)
-
-
 	 const envelopeArgs = {
 		 inputFileNames: body.inputFiles,
 		 docFiles: body.fileBase64.substr(body.fileBase64.indexOf(',')+1),
@@ -63,11 +60,9 @@
 	 }
 	 catch (error) {
 		 const errorBody = error && error.response && error.response.body;
-		 // we can pull the DocuSign error code and message from the response body
 		 const errorCode = errorBody && errorBody.errorCode;
 		 const errorMessage = errorBody && errorBody.message;
-		 // In production, may want to provide customized error messages and
-		 // remediation advice to the user.
+
 		 res.render('pages/error', {err: error, errorCode, errorMessage});
 	 }
 
@@ -86,9 +81,7 @@
   */
   admin_portal.getController = (req, res) => {
 	 console.log(req.dsAuth);
-	 // Check that the authentication token is ok with a long buffer time.
-	 // If needed, now is the best time to ask the user to authenticate
-	 // since they have not yet entered any information into the form.
+
 	 const tokenOK = req.dsAuth.checkToken();
 	 if (tokenOK) {
 		 res.render('pages/examples/demo_admin_portal', {

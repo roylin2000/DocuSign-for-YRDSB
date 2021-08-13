@@ -39,15 +39,12 @@
 	 // Step 2. Call the worker method
 	 const { body } = req;
 
-	//console.log("cool " + body.envID)
-
 	 const envelopeArgs = {
 		 signerEmail: validator.escape(body.signerEmail),
 		 signerName: validator.escape(body.signerName),
 		 signerClientId: signerClientId,
 		 dsReturnUrl: dsReturnUrl,
 		 dsPingUrl: dsPingUrl,
-		//  docFile: path.resolve(demoDocsPath, body.pdfFile)
 	 };
 	 const args = {
 		 accessToken: req.user.accessToken,
@@ -64,27 +61,21 @@
  
 	 try {
 		let viewRequest = makeRecipientViewRequest(envelopeArgs);
-		// results = await sendEnvelopeForEmbeddedSigning(args);
 		results = await envelopesApi.createRecipientView(args.accountId, body.envID, {
 			recipientViewRequest: viewRequest,
 		});
 
-		// console.log("The URL is: " + results.url)
 	 }
 	 catch (error) {
 		 const errorBody = error && error.response && error.response.body;
-		 // we can pull the DocuSign error code and message from the response body
+
 		 const errorCode = errorBody && errorBody.errorCode;
 		 const errorMessage = errorBody && errorBody.message;
-		 // In production, may want to provide customized error messages and
-		 // remediation advice to the user.
+
 		 res.render('pages/error', {err: error, errorCode, errorMessage});
 	 }
 	 if (results) {
-		 // Redirect the user to the embedded signing
-		 // Don't use an iFrame!
-		 // State can be stored/recovered using the framework's session or a
-		 // query parameter on the returnUrl (see the makeRecipientViewRequest method)
+
 		 res.redirect(results.url);
 	 }
  }
@@ -104,31 +95,12 @@
 	dsApiClient.addDefaultHeader("Authorization", "Bearer " + args.accessToken);
 	let envelopesApi = new docusign.EnvelopesApi(dsApiClient)
 
-	//** example list of forms to sign
-	var forms = [
-		{name: 'Museum Field Trip', status: 'Incomplete', type: "Extracurriculars", deadline: "August 10th (11:59 PM EST)", pdfFile: "World_Wide_Corp_fields.pdf"},
-		{name: 'Science Lab', status: 'Incomplete', type: "In-School", deadline: "August 29th (11:59 PM EST)", pdfFile: "World_Wide_Corp_lorem.pdf"},
-		{name: 'Healthcare Forms', status: 'Incomplete', type: "Adminitrative", deadline: "August 15th (11:59 PM EST)", pdfFile: "My_Own_Doc.pdf", envID: "b9df39e8-b7f8-495a-9445-48c767877cb6"}
-	]
-
-	
-
-	// const envSearchParams = {
-	// 	folder_ids: [out_for_signature]
-	// }
 
 	var envInfo = await (await envelopesApi.listStatusChanges(args.accountId, {folderIds:["awaiting_my_signature"]})).envelopes
 
 	console.log(envInfo)
 
 	
-
-
-
-	 //console.log(req.dsAuth);
-	 // Check that the authentication token is ok with a long buffer time.
-	 // If needed, now is the best time to ask the user to authenticate
-	 // since they have not yet entered any information into the form.
 	 const tokenOK = req.dsAuth.checkToken();
 	 if (tokenOK) {
 		 res.render('pages/examples/upcoming_submissions', {
