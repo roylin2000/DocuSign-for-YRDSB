@@ -15,16 +15,15 @@
 			  value="" required>
 	</div>
 	<div class="form-group">
-		<label for="docDeadline">Deadline</label>
-		<input type="datetime-local" class="form-control" id="docDeadline" name="docDeadline"
-			  value="" required>
+		<label for="docDeadline">Number of days until expiration</label>
+		<input type="number" class="form-control" id="docDeadline" name="docDeadline"
+			  value=0 required>
 	</div>
 
 	<input type="hidden" id="userInfo" name="userInfo" value=<%= locals.user.email %>> 
 
-
-
 	<!-- file input -->
+	<label for="inputFiles">Document</label>
 	<input type="file" id="inputFiles" name="inputFiles">
 	<input type="hidden" id="fileBase64" name="fileBase64" value="">
 	<script>
@@ -42,6 +41,34 @@
 			
 
 			
+		});
+	</script>
+
+	<label for="bulkExcelFile">Excel/CSV</label>
+	<input type="file" id="bulkExcelFile" name="bulkExcelFile"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" /> 
+	<input type="hidden" id="bulkJSONFile" name="bulkJSONFile" value="">
+	<script>
+		const csvSelector = document.getElementById('bulkExcelFile');
+		csvSelector.addEventListener('change', (event) => {
+			const files = event.target.files;
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				let data = e.target.result;
+
+				let workbook = XLSX.read(data, {
+					type: "binary"
+				});
+		
+				let rowObject = XLSX.utils.sheet_to_row_object_array(
+					workbook.Sheets[workbook.SheetNames[0]]
+				);
+				let jsonObject = JSON.stringify(rowObject);
+
+				var elem = document.getElementById("bulkJSONFile");
+				elem.value = jsonObject;
+				//console.log(jsonObject)
+			}
+			reader.readAsBinaryString(files[0]);
 		});
 	</script>
 	<!-- file input -->
