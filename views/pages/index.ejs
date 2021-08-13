@@ -8,7 +8,13 @@
 
   </div>
 </div>
-<% } %>
+<% } else { %>
+<div>
+	<script>
+		window.location.replace("<%=locals.dsConfig.appURL%>/upcoming_submissions");
+	</script>
+</div>
+<% } %> 
 
 <div class="container" style="margin-top: 40px" id="index-page">
 
@@ -41,7 +47,9 @@
   <img class = "cpuStand" src="https://www.pngitem.com/pimgs/m/508-5088760_clipart-free-stock-vector-computer-psd-mac-computer.png" alt="">
 </div>
 
+
 <div class = "welcomePage">
+	
   <div class = "title1">
     Welcome!
   </div>
