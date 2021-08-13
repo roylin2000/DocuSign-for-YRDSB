@@ -438,3 +438,14 @@ columns in the table */
 .material-icons.red600 {
   font-size: 40px;
 }
+
+/* Now starting here will the formattings for the
+admin page */
+.eg {
+  margin-top: 80px;
+  margin-left: 30px;
+}
+
+.form-group {
+  width: 75%;
+}
