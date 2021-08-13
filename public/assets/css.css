@@ -449,3 +449,7 @@ admin page */
 .form-group {
   width: 75%;
 }
+
+.submitted.link {
+  appearance: button;
+}

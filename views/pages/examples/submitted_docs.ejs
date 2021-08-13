@@ -22,7 +22,7 @@
 
 <!-- form has functions while div is just a box -->
 	</div>
-		<div class = "header two"><text > Upcoming Submissions</text></div>
+		<div class = "header two"><text > Submitted Documents</text></div>
 	</div>
 
 	<a class="btn sidebarOne" href="admin_portal">
@@ -30,17 +30,15 @@
 		Dashboard
 	</a>
 
-	<button type="button" class="btn sidebarTwo">
+	<a class="btn sidebarTwo" href="eg111">
 		<span class="material-icons red600"> schedule </span>
 		Upcoming Submissions
-	</button>
+	</a>
 
-
-	<a class="btn sidebarThree" href="submitted_page">
+	<button type="button" class="btn sidebarThree">
 		<span class="material-icons red600"> cloud_done </span>
 		Submitted Documents
-	</a>
-	
+	</button>
 	
 
 	<div class="form row layout">
@@ -64,7 +62,7 @@
 
 				<button onclick=setEnvID("<%=doc.envelopeId%>")>
 					<div class="label name"><%= doc.emailSubject%> </div>
-					<div class="label status"> Incomplete </div>
+					<div class="label status"> Completed </div>
 					<div class="label deadline"><%= doc.expireAfter %> </div>
 				</button>
 			</li>
