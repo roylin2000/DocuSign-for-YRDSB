@@ -220,7 +220,6 @@ BOOKMARKED */
 }
 
 .logout {
-  margin-left: 5%;
   font: bold 16px Arial, Helvetica, sans-serif;
   color: white;
   background-color: rgb(115, 115, 115);
@@ -230,11 +229,10 @@ BOOKMARKED */
   padding-left: 30px;
   border: rgb(115, 115, 115);
   border-radius: 5px;
-  margin-right: 10px;
+  margin-right: 5%;
 }
 
 .logout:hover {
-  margin-left: 5%;
   font: bold 16px Arial, Helvetica, sans-serif;
   color: white;
   background-color: rgb(150, 150, 150);
@@ -244,7 +242,9 @@ BOOKMARKED */
   padding-left: 30px;
   border: rgb(115, 115, 115);
   border-radius: 5px;
-  margin-right: 10px;
+  margin-right: 5%;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .navbar.text {
