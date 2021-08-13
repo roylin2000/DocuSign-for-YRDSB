@@ -11,6 +11,15 @@
 </body>
 
 <form class="eg" action="" method="post" data-busy="form">
+
+<!-- This is essential, please leave it here -->
+	<input type="hidden" class="form-control" id="signerEmail" name="signerEmail"
+		aria-describedby="emailHelp" placeholder="pat@example.com" required
+		value="<%= locals.dsConfig.signerEmail %>">
+	<input type="hidden" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
+		value="<%= locals.dsConfig.signerName %>" required>
+	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
+
 <!-- form has functions while div is just a box -->
 	</div>
 		<div class = "header two"><text > Upcoming Submissions</text></div>
@@ -35,7 +44,7 @@
 	<div class="form row layout">
 		<div class="labelName"><text >Document Name</text></div>
 		<div class="labelStatus"><text >Status</text></div>
-		<div class="labelDeadline"><text>Submission Deadline</text></div>
+		<div class="labelDeadline"><text>Days Until Expiration</text></div>
 	  	<!-- <text class="label name">Name</text>
 		<text class="label status">Status</text>
 		<text class="label type">Type</text>
@@ -54,7 +63,7 @@
 				<button onclick=setEnvID("<%=doc.envelopeId%>")>
 					<div class="label name"><%= doc.emailSubject%> </div>
 					<div class="label status"> Incomplete </div>
-					<div class="label deadline"><%= doc.expireDateTime %> </div>
+					<div class="label deadline"><%= doc.expireAfter %> </div>
 				</button>
 			</li>
 			<% }); %>
