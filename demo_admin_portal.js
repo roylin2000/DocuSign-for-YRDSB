@@ -220,7 +220,7 @@ const bulkSendEnvelopeForSigning = async (args) => {
    * @returns {Envelope} An envelope definition
    * @private
    */
-  function makeEnvelope(args) {
+function makeEnvelope(args) {
 	// Data for this method
 	// args.signerEmail
 	// args.signerName

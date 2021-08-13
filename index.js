@@ -22,6 +22,7 @@ const csrf = require('csurf'); // https://www.npmjs.com/package/csurf
 const upcoming_submissions = require('./upcoming_submissions');
 const admin_portal = require('./demo_admin_portal');
 const submitted_page = require('./submitted_docs');
+const volunteer_sending = require('./volunteer_sending');
 
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || 'localhost';
@@ -85,7 +86,8 @@ app.get('/submitted_page', submitted_page.getController)
 	.post('/admin_portal', admin_portal.createController)
 	.get('/upcoming_submissions', upcoming_submissions.getController)
 	.post('/upcoming_submissions', upcoming_submissions.createController)
-
+	.get('/volunteer_sending', volunteer_sending.getController)
+	.post('/volunteer_sending', volunteer_sending.createController)
 
 function dsLoginCB1(req, res, next) { req.dsAuthCodeGrant.oauth_callback1(req, res, next) }
 function dsLoginCB2(req, res, next) { req.dsAuthCodeGrant.oauth_callback2(req, res, next) }
