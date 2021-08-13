@@ -1,6 +1,8 @@
 <% include ../../partials/examplesHead %>
 <!-- <h4>0. My Own Example</h4> -->
-
+<body>
+	<div class="vl"></div>
+</body>
 <% include ../../partials/docBody %>
 
 <!-- <body class = "pageTop">
@@ -47,8 +49,7 @@
 
 	<div class="form row layout">
 		<div class="labelName"><text >Document Name</text></div>
-		<div class="labelStatus"><text >Status</text></div>
-		<div class="labelDeadline"><text>Days Until Expiration</text></div>
+		<div class="labelStatusTwo"><text >Status</text></div>
 	  	<!-- <text class="label name">Name</text>
 		<text class="label status">Status</text>
 		<text class="label type">Type</text>
@@ -66,7 +67,7 @@
 
 				<button onclick=setEnvID("<%=doc.envelopeId%>")>
 					<div class="label name"><%= doc.emailSubject%> </div>
-					<div class="label status"> Completed </div>
+					<div class="label status two"> Completed </div>
 					<div class="label deadline"><%= doc.expireAfter %> </div>
 				</button>
 			</li>

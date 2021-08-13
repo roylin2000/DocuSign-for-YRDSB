@@ -213,6 +213,13 @@ pre.json-display {
 /* THis is where our code starts
 BOOKMARKED */
 
+.vl {
+  border-left: 2px solid #ebebeb;
+  height: 100%;
+  margin-left: 130px;
+  position: absolute;
+}
+
 .logo {
   margin-left: 50px;
   position: absolute;
@@ -487,6 +494,14 @@ columns in the table */
   font-weight: bold;
 }
 
+.labelStatusTwo {
+  margin-left: 590px;
+  padding: 10px;
+  text-decoration: underline;
+  color: black;
+  font-weight: bold;
+}
+
 .labelDeadline {
   margin-left: 200px;
   padding: 10px;
@@ -506,6 +521,13 @@ columns in the table */
   margin-left: 630px;
   color: red;
   text-decoration: underline;
+  padding: 5px;
+  position: absolute;
+}
+
+.label.status.two {
+  margin-left: 730px;
+  color: rgb(24, 165, 31);
   padding: 5px;
   position: absolute;
 }
