@@ -588,3 +588,41 @@ admin page */
 .submitted.link {
   appearance: button;
 }
+
+/* The welcome page after you log out or before
+you log in */
+.welcomePage {
+  width: 80%;
+  left: 10%;
+  height: 500px;
+  border: 5px solid black;
+  border-radius: 5px;
+  position: absolute;
+  background-color: #fafafa;
+}
+
+.title1 {
+  font-family: Public Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 100px;
+  line-height: 117px;
+  /* identical to box height */
+  color: #000000;
+  margin-top: 15%;
+  text-align: center;
+  position: relative;
+}
+
+.title2 {
+  font: normal 16px Arial, Helvetica, sans-serif;
+  text-align: center;
+  position: relative;
+}
+
+.title3 {
+  color: red;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  text-align: center;
+  position: relative;
+}
