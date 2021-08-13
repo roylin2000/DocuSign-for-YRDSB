@@ -594,7 +594,7 @@ you log in */
 .welcomePage {
   width: 80%;
   left: 10%;
-  height: 500px;
+  height: 64%;
   border: 5px solid black;
   border-radius: 5px;
   position: absolute;
@@ -632,4 +632,5 @@ you log in */
   margin-left: 10%;
   width: 80%;
   position: absolute;
+  clip: rect(520px, 1300px, 1000px, 0px);
 }
