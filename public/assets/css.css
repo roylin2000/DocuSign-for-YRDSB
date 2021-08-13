@@ -390,15 +390,17 @@ columns in the table */
 }
 
 .label.status {
-  margin-left: 640px;
-  padding: 10px;
+  margin-left: 630px;
+  color: red;
+  text-decoration: underline;
+  padding: 5px;
   position: absolute;
 }
 
 .label.deadline {
   border: none;
   margin-left: 880px;
-  padding: 10px;
+  padding: 5px;
   position: absolute;
 }
 
