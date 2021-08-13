@@ -15,6 +15,25 @@
 
 <form class="eg" action="" method="post" data-busy="form">
 
+	</div>
+		<div class = "header two"><text > Upload Your Documents</text></div>
+	</div>
+	
+	<a class="btn sidebarOneo" href="admin_portal">
+		<span class="material-icons red600"> upload_file </span>
+		Send Out Your Forms
+	</a>
+
+	<a class="btn sidebarTwoo" href="/upcoming_submissions">
+		<span class="material-icons red600"> schedule </span>
+		Upcoming Submissions
+	</a>
+
+	<a class="btn sidebarThreeo" href="submitted_page">
+		<span class="material-icons red600"> cloud_done </span>
+		Submitted Documents
+	</a>
+
 	<div class="form-group">
 		<label for="docName">Document Name</label>
 		<input type="text" class="form-control" id="docName" placeholder="Museum Field Trip Form" name="docName"
@@ -29,7 +48,7 @@
 	<input type="hidden" id="userInfo" name="userInfo" value=<%= locals.user.email %>> 
 
 	<!-- file input -->
-	<label for="inputFiles">Document</label>
+	<label class = "fileLabel" for="inputFiles">Document</label>
 	<input type="file" id="inputFiles" name="inputFiles">
 	<input type="hidden" id="fileBase64" name="fileBase64" value="">
 	<script>
