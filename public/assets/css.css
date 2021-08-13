@@ -275,6 +275,71 @@ BOOKMARKED */
   position: absolute;
 }
 
+.btn.sidebarFours,
+.btn.sidebarFouro,
+.btn.sidebarFourt {
+  background-color: white;
+  color: #6b6666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+  width: 120px;
+  height: 100px;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  margin: 10px;
+  margin-top: 280px;
+  position: fixed;
+}
+
+.btn.sidebarFours:hover,
+.btn.sidebarFouro:hover,
+.btn.sidebarFourt:hover {
+  background-color: #dadada;
+  color: #6b6666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+  width: 120px;
+  height: 100px;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  margin: 10px;
+  margin-top: 280px;
+  position: fixed;
+}
+
+.btn.sidebarFourf {
+  background-color: #fafafa;
+  color: #ef3125;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+  width: 120px;
+  height: 100px;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  border-left: 2px solid;
+  margin: 10px;
+  margin-top: 280px;
+  position: fixed;
+}
+.btn.sidebarFourf:hover {
+  background-color: #dadada;
+  color: #ef3125;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+  width: 120px;
+  height: 100px;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  border-left: 2px solid;
+  margin: 10px;
+  margin-top: 280px;
+  position: fixed;
+}
+
 /* This is the left side bars */
 .btn.sidebarOneo {
   background-color: #fafafa;
@@ -307,7 +372,8 @@ BOOKMARKED */
 }
 
 .btn.sidebarOnes,
-.btn.sidebarOnet {
+.btn.sidebarOnet,
+.btn.sidebarOnef {
   background-color: white;
   color: #6b6666;
   display: flex;
@@ -322,7 +388,8 @@ BOOKMARKED */
 }
 
 .btn.sidebarOnes:hover,
-.btn.sidebarOnet:hover {
+.btn.sidebarOnet:hover,
+.btn.sidebarOnef:hover {
   background-color: #dadada;
   color: #6b6666;
   display: flex;
@@ -369,7 +436,8 @@ BOOKMARKED */
 }
 
 .btn.sidebarTwoo,
-.btn.sidebarTwot {
+.btn.sidebarTwot,
+.btn.sidebarTwof {
   background-color: white;
   color: #6b6666;
   display: flex;
@@ -385,7 +453,8 @@ BOOKMARKED */
 }
 
 .btn.sidebarTwoo:hover,
-.btn.sidebarTwot:hover {
+.btn.sidebarTwot:hover,
+.btn.sidebarTwof:hover {
   background-color: #dadada;
   color: #6b6666;
   display: flex;
@@ -401,7 +470,8 @@ BOOKMARKED */
 }
 
 .btn.sidebarThrees,
-.btn.sidebarThreeo {
+.btn.sidebarThreeo,
+.btn.sidebarThreef {
   background-color: white;
   color: #6b6666;
   display: flex;
@@ -417,7 +487,8 @@ BOOKMARKED */
 }
 
 .btn.sidebarThreeo:hover,
-.btn.sidebarThrees:hover {
+.btn.sidebarThrees:hover,
+.btn.sidebarThreef:hover {
   background-color: #dadada;
   color: #6b6666;
   display: flex;
@@ -463,6 +534,9 @@ BOOKMARKED */
   margin-top: 190px;
   position: fixed;
 }
+
+/* The last side bar we created */
+
 /* Here's the main contents 
 and the actual table stuff */
 
@@ -661,6 +735,22 @@ you log in */
   color: white;
 }
 .btn.btn-docu.btn-lg:hover {
+  border-radius: 5px;
+  padding: 8px 12px;
+  background-color: rgb(248, 91, 91);
+  color: white;
+}
+.btn.btn-docu {
+  margin-top: 20px;
+  margin-left: 200px;
+  border-radius: 5px;
+  padding: 8px 12px;
+  background-color: red;
+  color: white;
+}
+.btn.btn-docu:hover {
+  margin-top: 20px;
+  margin-left: 200px;
   border-radius: 5px;
   padding: 8px 12px;
   background-color: rgb(248, 91, 91);
