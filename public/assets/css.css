@@ -232,6 +232,19 @@ BOOKMARKED */
   border-radius: 5px;
 }
 
+.logout:hover {
+  margin-left: 90%;
+  font: bold 16px Arial, Helvetica, sans-serif;
+  color: white;
+  background-color: rgb(150, 150, 150);
+  padding-top: 10px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  border: rgb(115, 115, 115);
+  border-radius: 5px;
+}
+
 .header.two {
   margin-left: 200px;
   font: bold 30px Arial, Helvetica, sans-serif;
@@ -254,8 +267,38 @@ BOOKMARKED */
   position: fixed;
 }
 
+.btn.sidebarOne:hover {
+  background-color: #dadada;
+  color: #6b6666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+  width: 120px;
+  height: 100px;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  margin: 10px;
+  position: fixed;
+}
+
 .btn.sidebarTwo {
   background-color: #fafafa;
+  color: #ef3125;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+  width: 120px;
+  height: 100px;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  border-left: 2px solid;
+  margin: 10px;
+  margin-top: 100px;
+  position: fixed;
+}
+
+.btn.sidebarTwo:hover {
+  background-color: #dadada;
   color: #ef3125;
   display: flex;
   flex-direction: column;
@@ -285,6 +328,20 @@ BOOKMARKED */
   position: fixed;
 }
 
+.btn.sidebarThree:hover {
+  background-color: #dadada;
+  color: #6b6666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+  width: 120px;
+  height: 100px;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  margin: 10px;
+  margin-top: 190px;
+  position: fixed;
+}
 /* Here's the stuffs Andy hasn't touched */
 
 form {
@@ -303,35 +360,48 @@ form {
 
 /* This is the format for the label on the for each of the 
 columns in the table */
+
 .labelName {
-  margin-left: 20px;
+  margin-left: 45px;
   padding: 10px;
+  color: black;
+  font-weight: bold;
 }
 
 .labelStatus {
-  margin-left: 500px;
+  margin-left: 490px;
   padding: 10px;
+  color: black;
+  font-weight: bold;
 }
 
 .labelDeadline {
   margin-left: 200px;
   padding: 10px;
+  color: black;
+  font-weight: bold;
 }
 
 /* This is the format for the cells inside the table */
 .label.name {
-  margin-left: 20px;
   padding: 10px;
+  position: absolute;
+  font: normal 16px Arial, Helvetica, sans-serif;
 }
 
 .label.status {
-  margin-left: 500px;
-  padding: 10px;
+  margin-left: 630px;
+  color: red;
+  text-decoration: underline;
+  padding: 5px;
+  position: absolute;
 }
 
 .label.deadline {
-  margin-left: 200px;
-  padding: 10px;
+  border: none;
+  margin-left: 880px;
+  padding: 5px;
+  position: absolute;
 }
 
 .form.row.layout ul {
@@ -344,23 +414,27 @@ columns in the table */
 .form.row.layout ul li {
   /* ul stands for untitled list and li is list items */
   vertical-align: top;
-  text-align: center;
-  height: 100px;
+  height: 40px;
   line-height: 30px;
 }
 
+/* This is the text on the button */
 .form.row.layout ul li button {
-  padding: 10px;
+  width: 1150px;
+  padding-bottom: 40px;
   display: flex;
+  border: 10px, black;
 }
 
-.text.sidebar {
+.form.row.layout ul li button:hover {
+  width: 1150px;
+  padding-bottom: 40px;
   display: flex;
-  flex-direction: column;
-  font: normal 16px Arial, Helvetica, sans-serif;
+  border: 10px, black;
+  background-color: rgb(131, 157, 196);
 }
 
 /* Google Icons */
 .material-icons.red600 {
-  font-size: 48px;
+  font-size: 40px;
 }

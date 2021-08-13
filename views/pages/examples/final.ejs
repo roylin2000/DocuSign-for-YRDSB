@@ -6,7 +6,7 @@
 <body class = "pageTop">
 	<img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/York_Region_District_School_Board_Logo.svg/1200px-York_Region_District_School_Board_Logo.svg.png" height = "50" width="100" alt="School Board Logo">
 	<button class = "logout">
-		logout
+		Logout
 	</button>
 </body>
 
@@ -30,15 +30,6 @@
 		<span class="material-icons red600"> cloud_done </span>
 		Submitted Documents
 	</button>
-
-	<!-- hidden inputs so don't worry about them -->
-	<input type="hidden" class="form-control" id="signerEmail" name="signerEmail"
-          aria-describedby="emailHelp" placeholder="pat@example.com" required
-          value="<%= locals.dsConfig.signerEmail %>">
-	<input type="hidden" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-		value="<%= locals.dsConfig.signerName %>" required>
-	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
-
 	
 
 	<div class="form row layout">
@@ -61,7 +52,7 @@
                 </script>
 
 				<button onclick=setEnvID("<%=doc.envelopeId%>")>
-					<div class="label name"><strong><%= doc.emailSubject%></strong></div>
+					<div class="label name"><%= doc.emailSubject%> </div>
 					<div class="label status"> Incomplete </div>
 					<div class="label deadline"><%= doc.expireAfter %> </div>
 				</button>
