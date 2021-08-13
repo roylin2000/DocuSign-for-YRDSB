@@ -13,7 +13,7 @@ This repo is a Node.js application that utilizies DocuSign to digitalize the doc
 - volunteer_sending.js
 - volunteer_sending.ejs (in view/pages/examples)
 - submitted_docs.js
-- submitted_docs.ejs
+- submitted_docs.ejs (in view/pages/examples)
 
 ### License
 
