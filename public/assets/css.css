@@ -626,3 +626,10 @@ you log in */
   text-align: center;
   position: relative;
 }
+
+.cpuStand {
+  bottom: 7%;
+  margin-left: 10%;
+  width: 80%;
+  position: absolute;
+}
