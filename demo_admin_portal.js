@@ -132,7 +132,7 @@ const bulkSendEnvelopeForSigning = async (args) => {
 	let bulkList = await bulkEnvelopesApi.createBulkSendList(args.accountId,
 		{
 			bulkSendingList: {
-				name: "Two Roys",
+				name: "Send to students",
 				bulkCopies: bulkRecipients
 			}
 	})
@@ -148,8 +148,7 @@ const bulkSendEnvelopeForSigning = async (args) => {
   
 	let envelopeId = results.envelopeId;
 
-	await envelopesApi.createRecipient(args.accountId, envelopeId,
-		{
+	await envelopesApi.createRecipient(args.accountId, envelopeId,{
 			recipients: {
 				signers: [
 					{
@@ -163,7 +162,7 @@ const bulkSendEnvelopeForSigning = async (args) => {
 						recipientType: "signer"
 					}
 				]
-		}
+			}
 	})
 
 	await envelopesApi.createCustomFields(args.accountId, envelopeId,
@@ -180,13 +179,7 @@ const bulkSendEnvelopeForSigning = async (args) => {
 			}
 	})
 
-	await envelopesApi.updateNotificationSettings(args.accountId, envelopeId, {
-		"expirations": {
-			"expireAfter": "20",
-			"expireEnabled": "true",
-			"expireWarn": "10"
-		}
-	})
+	
 
 	console.log(`Envelope was created. EnvelopeId ${envelopeId}`);
 
@@ -206,6 +199,17 @@ const bulkSendEnvelopeForSigning = async (args) => {
 	await sleep(10000)
 
 	results = await bulkEnvelopesApi.getBulkSendBatchStatus(args.accountId, bulkResult.batchId)
+
+	
+	// await envelopesApi.updateNotificationSettings(args.accountId, "5ca27287-2723-410e-9221-8cc63f8f349e", {
+	// 	expirations: {
+	// 		expireAfter: "20",
+	// 		expireEnabled: "true",
+	// 		expireWarn: "10"
+	// 	},
+	// 	useAccountDefaults: "false"
+	// })
+	
   
 	return results;
   };
@@ -254,10 +258,15 @@ const bulkSendEnvelopeForSigning = async (args) => {
 	// To request that the envelope be created as a draft, set to "created"
 	env.status = "created";
 	
-	// env.notification.expirations.expireEnable = "true";
-    // env.notification.expirations.expireAfter = args.expireAfter;
-	// env.notification.expirations.expireWarn = 5;
-  
-  
+	//Set Notifications
+	let notification = new docusign.Notification();
+	notification.useAccountDefaults = 'false';
+	let expirations = new docusign.Expirations();
+	expirations.expireEnabled = 'true';
+	expirations.expireAfter = args.expireAfter;  // envelope will expire after 30 days
+	expirations.expireWarn = '5';
+	notification.expirations = expirations;
+	env.notification = notification;
+
 	return env;
 }
