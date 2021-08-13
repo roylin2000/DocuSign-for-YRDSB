@@ -5,13 +5,12 @@
  */
 
  const path = require('path');
- //const { sendEnvelopeForEmbeddedSigning } = require('./lib/eSignature/examples/embeddedSigning');
  const validator = require('validator');
  const dsConfig = require('./config/index.js').config;
  const { env } = require('process');
  
  const admin_portal = exports;
- const eg = 'eg001'; // This example reference.
+ const eg = ''; // This example reference.
  const mustAuthenticate = '/ds/mustAuthenticate';
  const minimumBufferMin = 3;
  const signerClientId = 1000; // The id of the signer within this application.

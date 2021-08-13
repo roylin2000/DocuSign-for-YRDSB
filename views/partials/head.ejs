@@ -25,36 +25,33 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand"  target="_blank" href="https://developers.docusign.com">DocuSign Developer</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+     
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button> -->
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-
-          <% if (locals.user) { %>
-            <li>
-              <a class="nav-link" href="/ds/logout" id="logout"
-                 data-busy="href">Logout <span class="sr-only">(current)</span></a>
-            </li>
-          <% } else { %>
-            <li>
-              <a class="nav-link" href="/ds/mustAuthenticate" id="login"
-                 data-busy="href">Login <span class="sr-only">(current)</span></a>
-            </li>
-          <% }  %>
-        </ul>
+		<img class="logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/York_Region_District_School_Board_Logo.svg/1200px-York_Region_District_School_Board_Logo.svg.png" height = "50" width="100" alt="School Board Logo">
+        
 
         <% if (locals.user) { %>
-          <span class="navbar-text">
+          <span class="navbar text">
             Welcome <%= locals.user.name %>
           </span>
         <% } %>
+
+		<% if (locals.user) { %>
+           
+			<a class="logout" href="/ds/logout" id="logout"
+			   data-busy="href">Logout <span class="sr-only">(current)</span></a>
+		  
+		<% } else { %>
+		 
+			<a class="logout" href="/ds/mustAuthenticate" id="login"
+			   data-busy="href">Login <span class="sr-only">(current)</span></a>
+		  
+		<% }  %>
 
       </div>
     </nav>

@@ -5,12 +5,11 @@
  */
 
  const path = require('path');
- const { sendEnvelopeForEmbeddedSigning, makeRecipientViewRequest } = require('./lib/eSignature/examples/embeddedSigning');
  const validator = require('validator');
  const dsConfig = require('./config/index.js').config;
  
- const eg111EmbeddedSigning = exports;
- const eg = 'eg111'; // This example reference.
+ const upcoming_submissions = exports;
+ const eg = ''; // This example reference.
  const mustAuthenticate = '/ds/mustAuthenticate';
  const minimumBufferMin = 3;
  const signerClientId = 1; // The id of the signer within this application.
@@ -25,7 +24,7 @@
   * @param {object} req Request obj
   * @param {object} res Response obj
   */
- eg111EmbeddedSigning.createController = async (req, res) => {
+ upcoming_submissions.createController = async (req, res) => {
 	 // Step 1. Check the token
 	 // At this point we should have a good token. But we
 	 // double-check here to enable a better UX to the user.
@@ -93,7 +92,7 @@
  /**
   * Form page for this application
   */
-  eg111EmbeddedSigning.getController = async (req, res) => {
+  upcoming_submissions.getController = async (req, res) => {
 	const args = {
 		accessToken: req.user.accessToken,
 		basePath: req.session.basePath,
@@ -132,11 +131,11 @@
 	 // since they have not yet entered any information into the form.
 	 const tokenOK = req.dsAuth.checkToken();
 	 if (tokenOK) {
-		 res.render('pages/examples/final', {
+		 res.render('pages/examples/upcoming_submissions', {
 			 eg: eg, csrfToken: req.csrfToken(),
 			 title: "My own example",
 			 sourceFile: path.basename(__filename),
-			 sourceUrl: 'https://github.com/docusign/code-examples-node/blob/master/eg001EmbeddedSigning.js',
+			//  sourceUrl: 'https://github.com/docusign/code-examples-node/blob/master/eg001EmbeddedSigning.js',
 			 documentation: dsConfig.documentation + eg,
 			 showDoc: dsConfig.documentation,
 			 forms: envInfo,
@@ -147,4 +146,47 @@
 		 res.redirect(mustAuthenticate);
 	 }
  }
+
+function makeRecipientViewRequest(args) {
+	// Data for this method
+	// args.dsReturnUrl
+	// args.signerEmail
+	// args.signerName
+	// args.signerClientId
+	// args.dsPingUrl
+  
+	let viewRequest = new docusign.RecipientViewRequest();
+  
+	// Set the url where you want the recipient to go once they are done signing
+	// should typically be a callback route somewhere in your app.
+	// The query parameter is included as an example of how
+	// to save/recover state information during the redirect to
+	// the DocuSign signing. It's usually better to use
+	// the session mechanism of your web framework. Query parameters
+	// can be changed/spoofed very easily.
+	viewRequest.returnUrl = args.dsReturnUrl + "?state=123";
+  
+	// How has your app authenticated the user? In addition to your app's
+	// authentication, you can include authenticate steps from DocuSign.
+	// Eg, SMS authentication
+	viewRequest.authenticationMethod = "Email";
+  
+	// Recipient information must match embedded recipient info
+	// we used to create the envelope.
+	viewRequest.email = args.signerEmail;
+	viewRequest.userName = args.signerName;
+  //   viewRequest.clientUserId = args.signerClientId;
+  
+	// DocuSign recommends that you redirect to DocuSign for the
+	// embedded signing. There are multiple ways to save state.
+	// To maintain your application's session, use the pingUrl
+	// parameter. It causes the DocuSign signing web page
+	// (not the DocuSign server) to send pings via AJAX to your
+	// app,
+	viewRequest.pingFrequency = 600; // seconds
+	// NOTE: The pings will only be sent if the pingUrl is an https address
+	viewRequest.pingUrl = args.dsPingUrl; // optional setting
+  
+	return viewRequest;
+}
  
