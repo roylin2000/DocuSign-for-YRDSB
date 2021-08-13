@@ -102,6 +102,10 @@ hr.styled:after {
   background: white;
 }
 
+.col-md-12.feedback {
+  margin-top: 5%;
+}
+
 .feedback,
 .hidden {
   display: none;
@@ -224,7 +228,8 @@ BOOKMARKED */
   padding-left: 30px;
   border: rgb(115, 115, 115);
   border-radius: 5px;
-  margin-right: 5%;
+  margin-left: 90%;
+  position: absolute;
 }
 
 .logout:hover {
@@ -238,8 +243,6 @@ BOOKMARKED */
   border: rgb(115, 115, 115);
   border-radius: 5px;
   margin-right: 5%;
-  display: flex;
-  flex-direction: row-reverse;
 }
 
 .header.two {
@@ -260,7 +263,8 @@ BOOKMARKED */
   width: 300px;
   padding-top: 25px;
   font: normal 16px Arial, Helvetica, sans-serif;
-  margin-left: 70%;
+  margin-left: 80%;
+  position: absolute;
 }
 
 /* This is the left side bars */
