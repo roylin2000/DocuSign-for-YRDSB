@@ -14,6 +14,8 @@ This repo is a Node.js application that utilizies DocuSign to digitalize the doc
 - volunteer_sending.ejs (in view/pages/examples)
 - submitted_docs.js
 - submitted_docs.ejs (in view/pages/examples)
+- index.js (minor changes)
+- and many minor changes in other DocuSign QuickStart files
 
 ### License
 
