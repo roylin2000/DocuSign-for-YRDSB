@@ -1,4 +1,4 @@
-# Node.js Launcher Code Examples
+# DOCUSIGN FOR YRDSB STUDENTS
 
 ### GitHub repo: [code-examples-node](./)
 
@@ -117,7 +117,3 @@ Once you've created a payment gateway, save the **Gateway Account ID** GUID to a
 
 ### License  
 This repository uses the MIT License. See [LICENSE](./LICENSE) for details.
-
-### Pull Requests
-Pull requests are welcomed. Pull requests will only be considered if their content
-uses the MIT License.
