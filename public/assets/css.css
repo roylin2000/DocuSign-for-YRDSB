@@ -208,11 +208,6 @@ pre.json-display {
 
 /* THis is where our code starts
 BOOKMARKED */
-.pageTop {
-  height: 150px;
-  width: 100%;
-  border-bottom: 2px solid rgb(180, 180, 180);
-}
 
 .logo {
   margin-left: 50px;
@@ -247,15 +242,25 @@ BOOKMARKED */
   flex-direction: row-reverse;
 }
 
-.navbar.text {
-  margin-left: 80%;
-}
-
 .header.two {
   margin-left: 200px;
   font: bold 30px Arial, Helvetica, sans-serif;
   color: #000000;
   margin-top: 70px;
+}
+
+.navbar.navbar-expand-md.navbar-light.bg-light.fixed-top {
+  height: 90px;
+  border-bottom: 2px solid #dadada;
+}
+
+.welcomeText {
+  height: 70px;
+  color: #6b6b6b;
+  width: 300px;
+  padding-top: 25px;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  margin-left: 70%;
 }
 
 /* This is the left side bars */
@@ -348,20 +353,17 @@ BOOKMARKED */
   margin-top: 190px;
   position: fixed;
 }
-/* Here's the stuffs Andy hasn't touched */
 
-form {
-  border: red;
-  border: 20px;
-  left: 20%;
-}
+/* Here's the main contents 
+and the actual table stuff */
 
 .form.row.layout {
   width: 1200px;
-  background-color: rgb(230, 230, 235);
   margin-left: 180px;
   margin-top: 30px;
   border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* This is the format for the label on the for each of the 
@@ -370,6 +372,7 @@ columns in the table */
 .labelName {
   margin-left: 45px;
   padding: 10px;
+  text-decoration: underline;
   color: black;
   font-weight: bold;
 }
@@ -377,6 +380,7 @@ columns in the table */
 .labelStatus {
   margin-left: 490px;
   padding: 10px;
+  text-decoration: underline;
   color: black;
   font-weight: bold;
 }
@@ -384,6 +388,7 @@ columns in the table */
 .labelDeadline {
   margin-left: 200px;
   padding: 10px;
+  text-decoration: underline;
   color: black;
   font-weight: bold;
 }
@@ -405,7 +410,7 @@ columns in the table */
 
 .label.deadline {
   border: none;
-  margin-left: 880px;
+  margin-left: 980px;
   padding: 5px;
   position: absolute;
 }
@@ -421,7 +426,6 @@ columns in the table */
   /* ul stands for untitled list and li is list items */
   vertical-align: top;
   height: 40px;
-  line-height: 30px;
 }
 
 /* This is the text on the button */
@@ -429,14 +433,15 @@ columns in the table */
   width: 1150px;
   padding-bottom: 40px;
   display: flex;
-  border: 10px, black;
+  background-color: #ffffff;
+  border: none;
 }
 
 .form.row.layout ul li button:hover {
   width: 1150px;
   padding-bottom: 40px;
   display: flex;
-  border: 10px, black;
+  border: 2px black;
   background-color: rgb(131, 157, 196);
 }
 
@@ -447,14 +452,6 @@ columns in the table */
 
 /* Now starting here will the formattings for the
 admin page */
-.eg {
-  margin-top: 80px;
-  margin-left: 30px;
-}
-
-.form-group {
-  width: 75%;
-}
 
 .submitted.link {
   appearance: button;
