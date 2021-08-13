@@ -228,7 +228,7 @@ BOOKMARKED */
   padding-left: 30px;
   border: rgb(115, 115, 115);
   border-radius: 5px;
-  margin-left: 90%;
+  right: 50px;
   position: absolute;
 }
 
@@ -242,7 +242,8 @@ BOOKMARKED */
   padding-left: 30px;
   border: rgb(115, 115, 115);
   border-radius: 5px;
-  margin-right: 5%;
+  right: 50px;
+  position: absolute;
 }
 
 .header.two {
@@ -263,7 +264,7 @@ BOOKMARKED */
   width: 300px;
   padding-top: 25px;
   font: normal 16px Arial, Helvetica, sans-serif;
-  margin-left: 80%;
+  right: 50px;
   position: absolute;
 }
 
