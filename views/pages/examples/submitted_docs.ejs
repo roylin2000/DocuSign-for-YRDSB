@@ -14,10 +14,10 @@
 
 <!-- This is essential, please leave it here -->
 	<input type="hidden" class="form-control" id="signerEmail" name="signerEmail"
-		aria-describedby="emailHelp" placeholder="pat@example.com" required
-		value="<%= locals.dsConfig.signerEmail %>">
+		aria-describedby="emailHelp" placeholder="pat@yrdsb.com" required
+		value="<%= locals.user.email %>">
 	<input type="hidden" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-		value="<%= locals.dsConfig.signerName %>" required>
+		value="<%= locals.user.name %>" required>
 	<input type="hidden" name="_csrf" value="<%- csrfToken %>">
 
 <!-- form has functions while div is just a box -->
